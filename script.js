@@ -5,145 +5,40 @@ const mapWidth = 600;
 const mapHeight = 600;
 const scale = 600 / 982;
 
-// Location coordinates
-const coords = {
-    "entrance0": { x: 308 * scale, y: 69 * scale },
-    "entrance1": { x: 89 * scale, y: 333 * scale },
-    "entrance2": { x: 897 * scale, y: 429 * scale },
-    "entrance3": { x: 566 * scale, y: 817 * scale },
-    "entrance4": { x: 688 * scale, y: 902 * scale },
-    "general-gate0": { x: 541 * scale, y: 49 * scale },
-    "general-gate1": { x: 318 * scale, y: 127 * scale },
-    "general-gate2": { x: 512 * scale, y: 161 * scale },
-    "general-gate3": { x: 912 * scale, y: 273 * scale },
-    "general-gate4": { x: 340 * scale, y: 482 * scale },
-    "general-gate5": { x: 609 * scale, y: 546 * scale },
-    "general-gate6": { x: 667 * scale, y: 673 * scale },
-    "general-gate7": { x: 322 * scale, y: 707 * scale },
-    "ranger-stop0": { x: 439 * scale, y: 84 * scale },
-    "ranger-stop1": { x: 98 * scale, y: 120 * scale },
-    "ranger-stop2": { x: 395 * scale, y: 175 * scale },
-    "ranger-stop3": { x: 725 * scale, y: 224 * scale },
-    "ranger-stop4": { x: 94 * scale, y: 467 * scale },
-    "ranger-stop5": { x: 741 * scale, y: 581 * scale },
-    "ranger-stop6": { x: 606 * scale, y: 722 * scale },
-    "ranger-stop7": { x: 494 * scale, y: 746 * scale },
-    "ranger-base": { x: 629 * scale, y: 858 * scale },
-    "camping0": { x: 258 * scale, y: 204 * scale },
-    "camping1": { x: 635 * scale, y: 249 * scale },
-    "camping2": { x: 221 * scale, y: 317 * scale },
-    "camping3": { x: 225 * scale, y: 339 * scale },
-    "camping4": { x: 239 * scale, y: 440 * scale },
-    "camping5": { x: 102 * scale, y: 594 * scale },
-    "camping6": { x: 735 * scale, y: 867 * scale },
-    "camping7": { x: 888 * scale, y: 712 * scale },
-    "camping8": { x: 897 * scale, y: 238 * scale },
-    "gate0": { x: 313 * scale, y: 165 * scale },
-    "gate1": { x: 286 * scale, y: 220 * scale },
-    "gate2": { x: 122 * scale, y: 270 * scale },
-    "gate3": { x: 731 * scale, y: 297 * scale },
-    "gate4": { x: 806 * scale, y: 561 * scale },
-    "gate5": { x: 644 * scale, y: 716 * scale },
-    "gate6": { x: 572 * scale, y: 740 * scale },
-    "gate7": { x: 477 * scale, y: 786 * scale },
-    "gate8": { x: 677 * scale, y: 887 * scale }
-};
+const coords = Object.fromEntries(`
+entrance0 307 69; entrance1 88 332; entrance2 897 429; entrance3 566 818; entrance4 688 902
+general-gate0 542 49; general-gate1 317 128; general-gate2 512 161; general-gate3 911 273; general-gate4 341 483; general-gate5 612 546; general-gate6 620 673; general-gate7 322 707
+ranger-stop0 439 83; ranger-stop1 98 123; ranger-stop2 436 185; ranger-stop3 727 225; ranger-stop4 93 469; ranger-stop5 741 580; ranger-stop6 605 722; ranger-stop7 493 746; ranger-base 629 858
+camping0 259 205; camping1 636 250; camping2 220 318; camping3 238 337; camping4 239 440; camping5 103 595; camping6 735 868; camping7 887 711; camping8 897 239
+gate0 313 167; gate1 308 220; gate2 123 269; gate3 731 298; gate4 805 561; gate5 653 711; gate6 570 741; gate7 478 785; gate8 678 886
+`.trim().split(/[;\n]+/).map(row => {
+    const [name, x, y] = row.trim().split(/\s+/);
+    return [name, { x: +x * scale, y: +y * scale }];
+}));
 
 const findings = [
-    {
-        id: "dumping-route",
-        category: "Critical",
-        tone: "critical",
-        title: "Illegal dumping centers on Ranger-Stop 3",
-        body: "The second progress deck concludes the evidence supports illegal factory waste dumping near Ranger-Stop 3, with nearby Camping 1 showing suppressed activity consistent with environmental harm.",
-        source: "Progress 2, slides 17 and 20",
-        locations: ["ranger-stop3", "camping1"]
-    },
-    {
-        id: "night-window",
-        category: "Critical",
-        tone: "critical",
-        title: "Illegal activity clusters on Tuesday and Thursday nights",
-        body: "All illegal restricted-access activity occurs on Tuesday and Thursday, with the suspected dumping window concentrated around 2am to 5am rather than normal park traffic hours.",
-        source: "Progress 2, slides 12, 18, and 20",
-        locations: ["ranger-stop3", "gate3", "gate5", "gate6"]
-    },
-    {
-        id: "restricted-route",
-        category: "Critical",
-        tone: "critical",
-        title: "One suspicious restricted route repeats 23 times",
-        body: "Excluding ranger vehicles, only one route repeatedly enters the restricted gate network. That route appears 23 times and includes the unusual pattern of a non-camper entering and exiting through the same entrance gate.",
-        source: "Progress 2, slides 13 and 20",
-        locations: ["gate3", "gate5", "gate6", "ranger-stop3"]
-    },
-    {
-        id: "truck-rs",
-        category: "Critical",
-        tone: "critical",
-        title: "Heavy trucks at ranger-stops are the strongest suspect set",
-        body: "A heavy-truck vehicle ID with repeated multi-day visits to ranger-stop sensors was identified as the most suspicious vehicle pattern, matching the ground-truth dumping narrative.",
-        source: "Progress 1, slide 13",
-        locations: ["ranger-stop3", "ranger-stop6"]
-    },
-    {
-        id: "gate-breach",
-        category: "Warning",
-        tone: "warning",
-        title: "Restricted gate breaches include 46 type-4 entries",
-        body: "Unauthorized type-4 vehicles appear 46 times through gates 3, 5, 6 and at ranger-stops 3 and 6, despite those areas being ranger-restricted.",
-        source: "Progress 1, slide 12",
-        locations: ["gate3", "gate5", "gate6", "ranger-stop3", "ranger-stop6"]
-    },
-    {
-        id: "sensor-gap",
-        category: "Warning",
-        tone: "warning",
-        title: "Ranger-Stop 1 reveals a likely sensor bypass",
-        body: "Car type 1 was detected at Ranger-Stop 1 twelve times in July, even though reaching that stop should require passing Gate 2. No matching Gate 2 records were found.",
-        source: "Progress 1, slide 14",
-        locations: ["ranger-stop1", "gate2"]
-    },
-    {
-        id: "multi-day-stays",
-        category: "Context",
-        tone: "context",
-        title: "Non-camper multi-day stays look deliberate, not recreational",
-        body: "A consistent pattern of 4 to 5 day stays by the same long-lived vehicle IDs appears from Sunday night to Friday morning without camping stops, suggesting work or conservation operations rather than visitors.",
-        source: "Progress 1, slides 8 to 10",
-        locations: ["entrance0", "entrance1", "entrance2", "entrance3", "entrance4"]
-    },
-    {
-        id: "ranger-baseline",
-        category: "Context",
-        tone: "context",
-        title: "Ranger traffic follows a daytime patrol baseline",
-        body: "Park-service vehicles concentrate on ranger-stops and the ranger base during daytime operational hours, with very little late-night activity. That baseline helps isolate the suspicious overnight window.",
-        source: "Progress 1, slide 11 and Progress 2, slide 18",
-        locations: ["ranger-base", "ranger-stop0", "ranger-stop1", "ranger-stop2", "ranger-stop3", "ranger-stop4", "ranger-stop5", "ranger-stop6", "ranger-stop7"]
-    },
-    {
-        id: "may-ranger-drop",
-        category: "Context",
-        tone: "context",
-        title: "Ranger activity drops sharply in May 2015 and 2016",
-        body: "The slides report at least 300 fewer ranger detections during May in both 2015 and 2016, which may reflect staffing, budget, or assignment changes.",
-        source: "Progress 2, slide 6",
-        locations: ["ranger-base"]
-    },
-    {
-        id: "summer-bus-traffic",
-        category: "Context",
-        tone: "context",
-        title: "Summer traffic peaks in July, especially around July 4",
-        body: "Peak preserve traffic occurs in the summer months, with the highest activity in July and a strong spike during the week of July 4. Bus traffic, especially vehicle type 5, rises steadily and can nearly double.",
-        source: "Progress 2, slides 7, 9, and 10",
-        locations: ["camping0", "camping1", "camping2", "camping3", "camping4", "camping5", "camping6", "camping7", "camping8"]
-    }
-];
+    ["dumping-route", "Critical", "Suspected dumping centers on Ranger-Stop 3", "The most concerning records repeatedly connect restricted gates with Ranger-Stop 3. Nearby Camping 1 has lower visitor activity than expected, which makes the area stand out as a potential environmental impact zone.", "Restricted route pattern", "ranger-stop3,camping1", "gate3,ranger-stop3,camping1"],
+    ["night-window", "Critical", "Suspicious traffic concentrates Tuesday and Thursday, 2am-5am", "The overnight window is unusually specific: suspicious restricted-area traffic clusters on Tuesday and Thursday between 2am and 5am, outside the normal visitor and ranger activity pattern.", "Time-of-day pattern", "ranger-stop3,gate3,gate5,gate6", "gate3,ranger-stop3,gate5,gate6"],
+    ["restricted-route", "Critical", "One restricted route repeats 23 times", "A single non-ranger route appears 23 times through the restricted gate network. The repeated path and same-entrance return pattern make it much less likely to be normal recreation traffic.", "Route repetition", "gate3,gate5,gate6,ranger-stop3", "gate3,ranger-stop3,gate5,gate6"],
+    ["truck-rs", "Critical", "Heavy trucks are the strongest suspect vehicle type", "Type 4 heavy trucks repeatedly appear near ranger-stop sensors and restricted gates. Their timing and location make them the most important vehicle type to inspect first.", "Vehicle type pattern", "ranger-stop3,ranger-stop6", "ranger-stop3,gate5,ranger-stop6"],
+    ["gate-breach", "Warning", "Restricted gate traffic includes unauthorized heavy trucks", "Non-ranger Type 4 vehicles appear at Gates 3, 5, and 6 and near Ranger-Stops 3 and 6. Those locations are restricted, so this traffic needs explanation.", "Restricted access pattern", "gate3,gate5,gate6,ranger-stop3,ranger-stop6", "gate3,ranger-stop3,gate5,gate6,ranger-stop6"],
+    ["sensor-gap", "Warning", "Ranger-Stop 1 shows a possible sensor gap", "Type 1 vehicles appear at Ranger-Stop 1 without matching Gate 2 records, even though Gate 2 should be part of that route. That mismatch suggests a bypass, missing detection, or data-quality issue.", "Sensor consistency check", "ranger-stop1,gate2", "gate2,ranger-stop1"],
+    ["multi-day-stays", "Context", "Some non-camping visits last multiple days", "Several vehicle IDs stay inside the preserve for four to five days without camping detections. These records look more like work, maintenance, or conservation activity than ordinary visits.", "Session duration pattern", "entrance0,entrance1,entrance2,entrance3,entrance4", ""],
+    ["ranger-baseline", "Context", "Ranger vehicles define the normal patrol baseline", "Ranger traffic is concentrated around ranger-stops and the ranger base during daytime operating hours. That baseline makes the late-night non-ranger records easier to separate from normal operations.", "Ranger baseline", "ranger-base,ranger-stop0,ranger-stop1,ranger-stop2,ranger-stop3,ranger-stop4,ranger-stop5,ranger-stop6,ranger-stop7", ""],
+    ["may-ranger-drop", "Context", "Ranger activity drops sharply in May", "Ranger detections fall noticeably during May in multiple years. This may reflect staffing, seasonal assignment changes, or gaps in patrol coverage.", "Monthly ranger pattern", "ranger-base", ""],
+    ["summer-bus-traffic", "Context", "Summer traffic peaks in July", "Preserve traffic rises in summer, especially in July. Bus and coach records also increase, suggesting a regular seasonal travel pattern separate from the restricted-area anomaly.", "Seasonal traffic pattern", "camping0,camping1,camping2,camping3,camping4,camping5,camping6,camping7,camping8", ""]
+].map(([id, category, title, body, source, locations, route]) => ({
+    id,
+    category,
+    tone: category.toLowerCase(),
+    title,
+    body,
+    source,
+    locations: locations.split(","),
+    route: route ? route.split(",") : []
+}));
 
 // Global state
-let fullData = [];
 let parsedData = [];
 let filteredData = [];
 let currentZoom = d3.zoomIdentity;
@@ -151,24 +46,145 @@ let svgSelection = null;
 let zoomBehavior = null;
 let activeGateName = null;
 let sessionSummaries = [];
-let activeProgressFilter = "all";
 let activeFindingId = null;
+let activeVehicleTypes = new Set(["all"]);
 
 const zoomDuration = 750;
 const zoomPadding = 32;
 const minFocusBoxSize = 120;
 const maxZoomScale = 8;
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const riskWindowDays = new Set(["Tuesday", "Thursday"]);
+const toneColors = { critical: "#e11d48", warning: "#f59e0b", context: "#14b8a6" };
+const vehicleTypes = [
+    { id: "1", label: "Type 1", description: "Cars", color: "#2563eb" },
+    { id: "2", label: "Type 2", description: "Vans", color: "#e11d48" },
+    { id: "2P", label: "Type 2P", description: "Ranger vans", color: "#7c3aed" },
+    { id: "3", label: "Type 3", description: "Minibus", color: "#14b8a6" },
+    { id: "4", label: "Type 4", description: "Heavy trucks", color: "#f59e0b" },
+    { id: "5", label: "Type 5", description: "Coach buses", color: "#64748b" },
+    { id: "6", label: "Type 6", description: "Articulated trucks", color: "#0f172a" }
+];
+const locationRules = [
+    ["camping", "camping", "C"],
+    ["entrance", "entrance", "E"],
+    ["ranger-stop", "ranger", "R"],
+    ["general-gate", "general", "GG"],
+    ["gate", "restricted", "G"]
+];
 
 function toneRank(tone) {
     return { critical: 3, warning: 2, context: 1 }[tone] || 0;
 }
 
-function getVisibleFindings() {
-    if (activeProgressFilter === "all") {
-        return findings;
+function isRiskWindow(d) {
+    return riskWindowDays.has(d.dayName) && d.hour >= 2 && d.hour < 5;
+}
+
+function gateRecords(gateName, rows = parsedData) {
+    return rows.filter(d => d["gate-name"] === gateName);
+}
+
+function countUnique(rows, key = "car-id") {
+    return new Set(rows.map(d => d[key])).size;
+}
+
+function percent(count, total) {
+    return total ? `${((count / total) * 100).toFixed(1)}%` : "0%";
+}
+
+function codeCell(value) {
+    return `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${value}</code>`;
+}
+
+function typeCell(type) {
+    return `<strong>Type ${type}</strong>`;
+}
+
+function getVehicleType(typeId) {
+    return vehicleTypes.find(type => type.id === typeId);
+}
+
+function resetVehicleFilter() {
+    activeVehicleTypes = new Set(["all"]);
+    renderVehicleFilterControls();
+}
+
+function getVehicleFilterLabel() {
+    if (activeVehicleTypes.has("all")) {
+        return "All Vehicle Records";
     }
-    return findings.filter(finding => finding.source.includes(activeProgressFilter));
+
+    const selected = vehicleTypes.filter(type => activeVehicleTypes.has(type.id));
+    if (selected.length === 1) {
+        return `${selected[0].label} Records`;
+    }
+
+    return `${selected.length} Vehicle Types`;
+}
+
+function renderVehicleFilterControls() {
+    const typeCounts = d3.rollup(parsedData, rows => rows.length, d => d["car-type"]);
+    const options = [
+        {
+            id: "all",
+            label: "All",
+            description: "Every vehicle",
+            count: parsedData.length,
+            color: "#111827"
+        },
+        ...vehicleTypes.map(type => ({
+            ...type,
+            count: typeCounts.get(type.id) || 0
+        }))
+    ];
+
+    const buttons = d3.select("#vehicle-filter-options")
+        .selectAll(".vehicle-chip")
+        .data(options, d => d.id);
+
+    buttons.exit().remove();
+
+    const buttonsEnter = buttons.enter()
+        .append("button")
+        .attr("type", "button")
+        .attr("class", "vehicle-chip")
+        .on("click", (_, d) => {
+            if (d.id === "all") {
+                activeVehicleTypes = new Set(["all"]);
+            } else {
+                activeVehicleTypes.delete("all");
+                if (activeVehicleTypes.has(d.id)) {
+                    activeVehicleTypes.delete(d.id);
+                } else {
+                    activeVehicleTypes.add(d.id);
+                }
+                if (activeVehicleTypes.size === 0) {
+                    activeVehicleTypes.add("all");
+                }
+            }
+
+            updateVisualizations();
+        });
+
+    buttonsEnter.append("span").attr("class", "vehicle-chip-main");
+    buttonsEnter.append("span").attr("class", "vehicle-chip-detail");
+    buttonsEnter.append("span").attr("class", "vehicle-chip-count");
+
+    buttonsEnter.merge(buttons)
+        .attr("class", d => `vehicle-chip${activeVehicleTypes.has(d.id) ? " is-active" : ""}`)
+        .style("--chip-color", d => d.color)
+        .attr("aria-pressed", d => activeVehicleTypes.has(d.id) ? "true" : "false")
+        .each(function(d) {
+            const chip = d3.select(this);
+            chip.select(".vehicle-chip-main").text(d.label);
+            chip.select(".vehicle-chip-detail").text(d.description);
+            chip.select(".vehicle-chip-count").text(formatMetricValue(d.count));
+        });
+}
+
+function getVisibleFindings() {
+    return findings;
 }
 
 function getLocationTone(locationName) {
@@ -187,10 +203,10 @@ function renderOverviewChips() {
         visibleFindings.filter(finding => finding.tone === "critical").flatMap(finding => finding.locations)
     );
     const chips = [
-        { value: activeProgressFilter === "all" ? 2 : 1, label: "Source Decks" },
-        { value: visibleFindings.length, label: "Key Findings" },
+        { value: parsedData.length, label: "Sensor Records" },
+        { value: countUnique(parsedData), label: "Vehicle IDs" },
         { value: criticalLocations.size, label: "Critical Locations" },
-        { value: uniqueLocations.size, label: "Mapped Evidence Sites" }
+        { value: uniqueLocations.size, label: "Mapped Pattern Sites" }
     ];
 
     const chipSelection = d3.select("#overview-chips")
@@ -209,7 +225,7 @@ function renderOverviewChips() {
     chipEnter.merge(chipSelection)
         .each(function(d) {
             const chip = d3.select(this);
-            chip.select("strong").text(d.value);
+            chip.select("strong").text(formatMetricValue(d.value));
             chip.select("span").text(d.label);
         });
 }
@@ -220,56 +236,33 @@ function getPrimaryFindingForLocation(locationName) {
         .sort((a, b) => toneRank(b.tone) - toneRank(a.tone))[0] || null;
 }
 
+function getActiveRouteFinding() {
+    if (activeFindingId) {
+        const explicitFinding = getVisibleFindings().find(finding => finding.id === activeFindingId && finding.route.length);
+        if (explicitFinding) {
+            return explicitFinding;
+        }
+    }
+
+    if (!activeGateName) {
+        return null;
+    }
+
+    return getVisibleFindings()
+        .filter(finding => finding.route.length && finding.locations.includes(activeGateName))
+        .sort((a, b) => toneRank(b.tone) - toneRank(a.tone))[0] || null;
+}
+
 function getSiteType(locationName) {
-    if (locationName.startsWith("camping")) return "camping";
-    if (locationName.startsWith("entrance")) return "entrance";
-    if (locationName.startsWith("ranger-stop")) return "ranger";
     if (locationName === "ranger-base") return "base";
-    if (locationName.startsWith("gate")) return "restricted";
-    if (locationName.startsWith("general-gate")) return "general";
-    return "site";
+    return locationRules.find(([prefix]) => locationName.startsWith(prefix))?.[1] || "site";
 }
 
 function getMarkerCode(locationName) {
-    if (locationName.startsWith("camping")) return `C${locationName.replace("camping", "")}`;
-    if (locationName.startsWith("entrance")) return `E${locationName.replace("entrance", "")}`;
-    if (locationName.startsWith("ranger-stop")) return `R${locationName.replace("ranger-stop", "")}`;
     if (locationName === "ranger-base") return "RB";
-    if (locationName.startsWith("general-gate")) return `GG${locationName.replace("general-gate", "")}`;
-    if (locationName.startsWith("gate")) return `G${locationName.replace("gate", "")}`;
+    const rule = locationRules.find(([prefix]) => locationName.startsWith(prefix));
+    if (rule) return `${rule[2]}${locationName.replace(rule[0], "")}`;
     return locationName.slice(0, 2).toUpperCase();
-}
-
-
-function renderProgressFilters() {
-    const options = [
-        { id: "all", label: "All Findings" },
-        { id: "Progress 1", label: "Progress 1" },
-        { id: "Progress 2", label: "Progress 2" }
-    ];
-
-    const tabs = d3.select("#progress-filters")
-        .selectAll(".progress-pill")
-        .data(options, d => d.id);
-
-    tabs.exit().remove();
-
-    const tabsEnter = tabs.enter()
-        .append("button")
-        .attr("type", "button")
-        .attr("class", "progress-pill")
-        .on("click", (_, d) => {
-            activeProgressFilter = d.id;
-            activeFindingId = null;
-            renderProgressFilters();
-            renderOverviewChips();
-            renderFindingBoard();
-            updateVisualizations();
-        });
-
-    tabsEnter.merge(tabs)
-        .attr("class", d => `progress-pill${activeProgressFilter === d.id ? " is-active" : ""}`)
-        .text(d => d.label);
 }
 
 function renderFindingBoard() {
@@ -303,7 +296,7 @@ function renderFindingBoard() {
         .attr("class", d => `board-card is-${d.tone}${activeFindingId === d.id ? " is-active" : ""}`)
         .each(function(d) {
             const card = d3.select(this);
-            card.select(".board-source").text(d.source.split(",")[0]);
+            card.select(".board-source").text(d.source);
             card.select(".board-tone")
                 .attr("class", `board-tone is-${d.tone}`)
                 .text(d.category);
@@ -313,7 +306,7 @@ function renderFindingBoard() {
         });
 
     if (!boardFindings.length) {
-        board.html("<p class=\"detail-copy\">No findings match the selected progress filter.</p>");
+        board.html("<p class=\"detail-copy\">No patterns are available for the current data.</p>");
     }
 }
 
@@ -433,15 +426,15 @@ function renderEvidence(stats, headers, rows, emptyMessage) {
 }
 
 function buildRestrictedEvidence(gateName) {
-    const records = parsedData.filter(d => d["gate-name"] === gateName);
+    const records = gateRecords(gateName);
     const nonRanger = records.filter(d => !isRangerVehicle(d["car-type"]));
     const heavyTruck = nonRanger.filter(d => String(d["car-type"]) === "4");
-    const overnight = nonRanger.filter(d => ["Tuesday", "Thursday"].includes(d.dayName) && d.hour >= 2 && d.hour < 5);
+    const overnight = nonRanger.filter(isRiskWindow);
 
     const grouped = d3.rollups(nonRanger, rows => ({
         carType: rows[0]["car-type"],
         visits: rows.length,
-        overnightVisits: rows.filter(d => ["Tuesday", "Thursday"].includes(d.dayName) && d.hour >= 2 && d.hour < 5).length,
+        overnightVisits: rows.filter(isRiskWindow).length,
         firstSeen: d3.min(rows, d => d.parsedTime),
         lastSeen: d3.max(rows, d => d.parsedTime)
     }), d => d["car-id"])
@@ -449,7 +442,7 @@ function buildRestrictedEvidence(gateName) {
         .slice(0, 8);
 
     return {
-        summary: `This location is part of the restricted-access story from your slides, so the panel only shows non-ranger evidence tied to unauthorized entries and the Tuesday/Thursday overnight dumping window.`,
+        summary: `This is a restricted-access location, so the table focuses on non-ranger records and the Tuesday/Thursday overnight window where suspicious traffic is concentrated.`,
         stats: [
             { label: "Non-Ranger Visits", value: nonRanger.length },
             { label: "Heavy Truck Visits", value: heavyTruck.length },
@@ -458,8 +451,8 @@ function buildRestrictedEvidence(gateName) {
         ],
         headers: ["Vehicle ID", "Type", "Visits", "Tue/Thu 2-5am", "First Seen", "Last Seen"],
         rows: grouped.map(([carId, info]) => [
-            `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${carId}</code>`,
-            `<strong>Type ${info.carType}</strong>`,
+            codeCell(carId),
+            typeCell(info.carType),
             info.visits.toLocaleString(),
             info.overnightVisits.toLocaleString(),
             formatTime(info.firstSeen),
@@ -470,9 +463,9 @@ function buildRestrictedEvidence(gateName) {
 }
 
 function buildSensorGapEvidence() {
-    const stopRecords = parsedData.filter(d => d["gate-name"] === "ranger-stop1" && String(d["car-type"]) === "1");
-    const gate2Ids = new Set(parsedData
-        .filter(d => d["gate-name"] === "gate2" && String(d["car-type"]) === "1")
+    const stopRecords = gateRecords("ranger-stop1").filter(d => String(d["car-type"]) === "1");
+    const gate2Ids = new Set(gateRecords("gate2")
+        .filter(d => String(d["car-type"]) === "1")
         .map(d => d["car-id"]));
     const unmatched = stopRecords.filter(d => !gate2Ids.has(d["car-id"]));
     const julyCount = unmatched.filter(d => d.parsedTime.getMonth() === 6).length;
@@ -487,7 +480,7 @@ function buildSensorGapEvidence() {
         .slice(0, 8);
 
     return {
-        summary: `The slide finding here is the sensor-gap anomaly: type 1 vehicles appear at Ranger-Stop 1 without matching Gate 2 detections, so the panel only shows those unmatched examples.`,
+        summary: `This view checks for a sensor-consistency problem: Type 1 vehicles appear at Ranger-Stop 1 without matching Gate 2 detections, so the table shows the unmatched examples.`,
         stats: [
             { label: "Type 1 at Stop 1", value: stopRecords.length },
             { label: "Unmatched Gate 2 IDs", value: grouped.length },
@@ -496,7 +489,7 @@ function buildSensorGapEvidence() {
         ],
         headers: ["Vehicle ID", "Visits at Stop 1", "July Visits", "First Seen", "Last Seen"],
         rows: grouped.map(([carId, info]) => [
-            `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${carId}</code>`,
+            codeCell(carId),
             info.visits.toLocaleString(),
             info.julyVisits.toLocaleString(),
             formatTime(info.firstSeen),
@@ -507,12 +500,11 @@ function buildSensorGapEvidence() {
 }
 
 function buildCampingEvidence(gateName) {
-    const records = parsedData.filter(d => d["gate-name"] === gateName);
+    const records = gateRecords(gateName);
     const monthly = d3.rollups(records, rows => rows.length, d => monthKey(d.parsedTime))
         .sort((a, b) => a[0].localeCompare(b[0]));
     const summerCount = records.filter(d => [5, 6, 7].includes(d.parsedTime.getMonth())).length;
     const julyCount = records.filter(d => d.parsedTime.getMonth() === 6).length;
-    const busCount = records.filter(d => String(d["car-type"]) === "5").length;
 
     const campsiteTotals = d3.rollups(parsedData.filter(d => d["gate-name"].startsWith("camping")), rows => rows.length, d => d["gate-name"])
         .sort((a, b) => a[1] - b[1]);
@@ -520,8 +512,8 @@ function buildCampingEvidence(gateName) {
 
     return {
         summary: gateName === "camping1"
-            ? `Your slides link Camping 1 to the suspected dump site near Ranger-Stop 3, so this view emphasizes the campsite’s suppressed traffic during the busiest months instead of listing every passing vehicle.`
-            : `Your slides emphasize seasonal campground demand and summer spikes, so this view shows month-level traffic and bus-heavy seasonal pressure rather than raw IDs.`,
+            ? `Camping 1 is near the Ranger-Stop 3 anomaly, so this view emphasizes whether campsite traffic is unusually low during busy months.`
+            : `This campsite view shows month-level traffic and bus activity so seasonal demand is easier to read than a raw list of detections.`,
         stats: [
             { label: "Total Detections", value: records.length },
             { label: "Summer Detections", value: summerCount },
@@ -536,7 +528,7 @@ function buildCampingEvidence(gateName) {
                 month,
                 count.toLocaleString(),
                 monthBus.toLocaleString(),
-                `${((count / records.length) * 100).toFixed(1)}%`
+                percent(count, records.length)
             ];
         }),
         emptyMessage: "No campsite traffic matched this location."
@@ -554,7 +546,7 @@ function buildEntranceEvidence(gateName) {
     const avgDurationDays = multiDay.length ? d3.mean(multiDay, d => d.durationHours / 24) : 0;
 
     return {
-        summary: `The slide decks call out long non-camper stays that look operational rather than recreational, so this entrance view shows only long-duration sessions instead of every single vehicle crossing.`,
+        summary: `This entrance view isolates long-duration sessions. Multi-day entries without camping stops are more useful for pattern analysis than every single entrance crossing.`,
         stats: [
             { label: "24h+ Sessions", value: sessions.length },
             { label: "4-5 Day Sessions", value: multiDay.length },
@@ -563,8 +555,8 @@ function buildEntranceEvidence(gateName) {
         ],
         headers: ["Vehicle ID", "Type", "Start", "End", "Duration", "Route Snapshot"],
         rows: multiDay.slice(0, 8).map(session => [
-            `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${session.carId}</code>`,
-            `<strong>Type ${session.carType}</strong>`,
+            codeCell(session.carId),
+            typeCell(session.carType),
             formatTime(session.startTime),
             formatTime(session.endTime),
             `${(session.durationHours / 24).toFixed(1)} days`,
@@ -575,7 +567,7 @@ function buildEntranceEvidence(gateName) {
 }
 
 function buildRangerEvidence(gateName) {
-    const records = parsedData.filter(d => d["gate-name"] === gateName && isRangerVehicle(d["car-type"]));
+    const records = gateRecords(gateName).filter(d => isRangerVehicle(d["car-type"]));
     const overnight = records.filter(d => d.hour < 6 || d.hour >= 20).length;
     const peakHourEntry = d3.greatest(
         d3.rollups(records, rows => rows.length, d => d.hour),
@@ -586,25 +578,25 @@ function buildRangerEvidence(gateName) {
         .slice(0, 8);
 
     return {
-        summary: `The slides use ranger traffic as a baseline pattern of life, so this panel focuses on ranger-only operating hours and hourly concentration rather than all vehicle IDs at the location.`,
+        summary: `Ranger traffic is the baseline for normal preserve operations, so this panel focuses on ranger-only operating hours and hourly concentration.`,
         stats: [
             { label: "Ranger Detections", value: records.length },
-            { label: "Nighttime Share", value: records.length ? `${((overnight / records.length) * 100).toFixed(1)}%` : "0%" },
-            { label: "Unique Ranger IDs", value: new Set(records.map(d => d["car-id"])).size },
+            { label: "Nighttime Share", value: percent(overnight, records.length) },
+            { label: "Unique Ranger IDs", value: countUnique(records) },
             { label: "Peak Hour", value: peakHourEntry ? `${peakHourEntry[0]}:00` : "N/A" }
         ],
         headers: ["Hour", "Ranger Detections", "Share of Ranger Traffic"],
         rows: hourlyRows.map(([hour, count]) => [
             `${String(hour).padStart(2, "0")}:00`,
             count.toLocaleString(),
-            `${((count / records.length) * 100).toFixed(1)}%`
+            percent(count, records.length)
         ]),
         emptyMessage: "No ranger-vehicle detections were found for this location."
     };
 }
 
 function buildGenericEvidence(gateName) {
-    const records = parsedData.filter(d => d["gate-name"] === gateName);
+    const records = gateRecords(gateName);
     const byType = d3.rollups(records, rows => rows.length, d => d["car-type"])
         .sort((a, b) => b[1] - a[1])
         .slice(0, 8);
@@ -612,18 +604,18 @@ function buildGenericEvidence(gateName) {
         .sort((a, b) => b[1] - a[1])[0];
 
     return {
-        summary: `No specific anomaly slide was attached to this location, so the panel shows a compact traffic profile instead of every raw car-id detection.`,
+        summary: `This location does not have a flagged anomaly, so the panel shows a compact traffic profile by vehicle type and peak hour.`,
         stats: [
             { label: "Total Detections", value: records.length },
-            { label: "Unique Vehicle IDs", value: new Set(records.map(d => d["car-id"])).size },
-            { label: "Vehicle Types Present", value: new Set(records.map(d => d["car-type"])).size },
+            { label: "Unique Vehicle IDs", value: countUnique(records) },
+            { label: "Vehicle Types Present", value: countUnique(records, "car-type") },
             { label: "Peak Hour", value: byHour ? `${byHour[0]}:00` : "N/A" }
         ],
         headers: ["Vehicle Type", "Detections", "Share of Total"],
         rows: byType.map(([type, count]) => [
-            `<strong>Type ${type}</strong>`,
+            typeCell(type),
             count.toLocaleString(),
-            `${((count / records.length) * 100).toFixed(1)}%`
+            percent(count, records.length)
         ]),
         emptyMessage: "No evidence was available for this location."
     };
@@ -648,6 +640,69 @@ function getEvidenceForGate(gateName) {
     return buildGenericEvidence(gateName);
 }
 
+function drawActiveRoute(g) {
+    const routeFinding = getActiveRouteFinding();
+    if (!routeFinding) {
+        g.selectAll(".route-overlay").remove();
+        return;
+    }
+
+    const routePoints = routeFinding.route
+        .map(name => ({ name, coord: coords[name] }))
+        .filter(point => point.coord);
+
+    if (routePoints.length < 2) {
+        g.selectAll(".route-overlay").remove();
+        return;
+    }
+
+    const routeLayer = g.selectAll(".route-overlay")
+        .data([routeFinding], d => d.id)
+        .join(enter => enter.append("g").attr("class", "route-overlay"));
+
+    routeLayer.selectAll("*").remove();
+
+    const line = d3.line()
+        .x(d => d.coord.x)
+        .y(d => d.coord.y)
+        .curve(d3.curveCatmullRom.alpha(0.45));
+
+    routeLayer.append("path")
+        .datum(routePoints)
+        .attr("class", "route-line route-line-halo")
+        .attr("d", line);
+
+    routeLayer.append("path")
+        .datum(routePoints)
+        .attr("class", "route-line")
+        .attr("d", line);
+
+    routeLayer.selectAll(".route-stop")
+        .data(routePoints)
+        .enter()
+        .append("circle")
+        .attr("class", "route-stop")
+        .attr("cx", d => d.coord.x)
+        .attr("cy", d => d.coord.y)
+        .attr("r", 7);
+
+    routeLayer.selectAll(".route-index")
+        .data(routePoints)
+        .enter()
+        .append("text")
+        .attr("class", "route-index")
+        .attr("x", d => d.coord.x)
+        .attr("y", d => d.coord.y + 3)
+        .attr("text-anchor", "middle")
+        .text((_, index) => index + 1);
+
+    routeLayer.append("text")
+        .attr("class", "route-caption")
+        .attr("x", routePoints[0].coord.x)
+        .attr("y", routePoints[0].coord.y - 18)
+        .text(routeFinding.source);
+}
+
 function isDefaultZoom(transform) {
     return Math.abs(transform.k - 1) < 0.001 &&
         Math.abs(transform.x) < 0.5 &&
@@ -656,22 +711,27 @@ function isDefaultZoom(transform) {
 
 function updateActiveLocationStyles() {
     const hasActiveGate = Boolean(activeGateName);
+    const routeFinding = getActiveRouteFinding();
+    const routeLocations = new Set(routeFinding?.route || []);
 
     d3.selectAll(".feature-cell")
         .classed("is-active", d => d.name === activeGateName)
+        .classed("is-route", d => routeLocations.has(d.name))
         .classed("is-muted", d => hasActiveGate && d.name !== activeGateName);
 
     d3.selectAll(".location-marker")
         .classed("is-active", d => d.name === activeGateName)
+        .classed("is-route", d => routeLocations.has(d.name))
         .classed("is-muted", d => hasActiveGate && d.name !== activeGateName);
 
     d3.selectAll(".location-code")
         .classed("is-active", d => d.name === activeGateName)
+        .classed("is-route", d => routeLocations.has(d.name))
         .classed("is-muted", d => hasActiveGate && d.name !== activeGateName)
-        .classed("is-visible", d => !hasActiveGate && d.siteType === "camping");
+        .classed("is-visible", d => routeLocations.has(d.name) || (!hasActiveGate && d.siteType === "camping"));
 
     d3.selectAll(".location-label")
-        .classed("is-visible", d => hasActiveGate && d.name === activeGateName);
+        .classed("is-visible", d => routeLocations.has(d.name) || (hasActiveGate && d.name === activeGateName));
 }
 
 // Tooltip
@@ -713,7 +773,7 @@ function renderFindings() {
         });
 
     if (activeFindings.length === 0) {
-        findingsGrid.html("<p class=\"detail-copy\">Click a gate, ranger-stop, campsite, or entrance on the map to show the matching findings from your PDF slides.</p>");
+        findingsGrid.html("<p class=\"detail-copy\">Click a gate, ranger-stop, campsite, or entrance on the map to show the data patterns tied to that location.</p>");
     }
 }
 
@@ -722,7 +782,7 @@ function updateDetailStatus() {
     if (!activeGateName) {
         detailStatus
             .attr("class", "detail-status")
-            .text(activeProgressFilter === "all" ? "Awaiting Selection" : `${activeProgressFilter} Focus`);
+            .text("Awaiting Selection");
         return;
     }
 
@@ -736,13 +796,13 @@ function updateDetailStatus() {
 
     detailStatus
         .attr("class", `detail-status is-${leadFinding.tone}`)
-        .text(`${leadFinding.category} • ${leadFinding.source.split(",")[0]}`);
+        .text(`${leadFinding.category} • ${leadFinding.source}`);
 }
 
 function clearDetails() {
     activeFindingId = null;
     d3.select("#detailTitle").text("Select a Region");
-    d3.select("#detailSummary").text("Choose a highlighted region on the map to inspect a curated evidence profile built from the slide findings, not a raw dump of sensor rows.");
+    d3.select("#detailSummary").text("Choose a highlighted region on the map to inspect the sensor records, traffic mix, timing, and any anomaly patterns tied to that location.");
     d3.select("#detailStatsContainer").html("");
     d3.select("#detailTableContainer").html("<p class=\"detail-copy\">No region selected.</p>");
     updateDetailStatus();
@@ -751,8 +811,8 @@ function clearDetails() {
 }
 
 function showGateDetails(gateName) {
-    const gateRecords = parsedData.filter(d => d["gate-name"] === gateName);
-    const latestRecord = gateRecords.slice().sort((a, b) => b.parsedTime - a.parsedTime)[0];
+    const records = gateRecords(gateName);
+    const latestRecord = records.slice().sort((a, b) => b.parsedTime - a.parsedTime)[0];
     const evidence = getEvidenceForGate(gateName);
     const preservedFinding = getVisibleFindings().find(
         finding => finding.id === activeFindingId && finding.locations.includes(gateName)
@@ -776,12 +836,17 @@ function showGateDetails(gateName) {
 
 function selectLocationByName(gateName, options = {}) {
     if (options.resetFilters) {
-        d3.select("#vehicle-filter").property("value", "all");
+        resetVehicleFilter();
         d3.select("#time-start").property("value", 0);
         d3.select("#time-end").property("value", 23);
         updateTimeDisplay();
-        updateVisualizations();
         activeFindingId = options.findingId || null;
+        filterData();
+        renderVehicleFilterControls();
+        renderOverviewChips();
+        updateStats();
+        updateAnalytics();
+        updateHeatMap();
     }
 
     const featureNode = d3.selectAll(".feature-cell").filter(d => d.name === gateName).node();
@@ -796,7 +861,6 @@ function selectLocationByName(gateName, options = {}) {
 
 // Load data
 d3.csv(csvFile).then(data => {
-    fullData = data;
     parsedData = data.map(d => {
         const parsedTime = new Date(d.Timestamp);
         return {
@@ -807,7 +871,7 @@ d3.csv(csvFile).then(data => {
         };
     });
     sessionSummaries = buildSessionSummaries(parsedData);
-    renderProgressFilters();
+    renderVehicleFilterControls();
     renderOverviewChips();
     clearDetails();
     updateVisualizations();
@@ -854,7 +918,6 @@ function updateTimeDisplay() {
 }
 
 function setupControls() {
-    d3.select("#vehicle-filter").on("change", updateVisualizations);
     d3.select("#time-start").on("input", function() {
         const endHour = +d3.select("#time-end").property("value");
         const nextStart = Math.min(+this.value, endHour);
@@ -870,7 +933,7 @@ function setupControls() {
         updateVisualizations();
     });
     d3.select("#reset-btn").on("click", () => {
-        d3.select("#vehicle-filter").property("value", "all");
+        resetVehicleFilter();
         d3.select("#time-start").property("value", 0);
         d3.select("#time-end").property("value", 23);
         updateTimeDisplay();
@@ -880,11 +943,10 @@ function setupControls() {
 }
 
 function filterData() {
-    const vehicleFilter = d3.select("#vehicle-filter").property("value");
     const { startHour, endHour, isAllHours } = getTimeWindow();
     
     filteredData = parsedData.filter(d => {
-        const matches_vehicle = vehicleFilter === "all" || d["car-type"] === vehicleFilter;
+        const matches_vehicle = activeVehicleTypes.has("all") || activeVehicleTypes.has(d["car-type"]);
         const matches_time = isAllHours || (d.hour >= startHour && d.hour <= endHour);
         return matches_vehicle && matches_time;
     });
@@ -895,7 +957,7 @@ function filterData() {
 function updateVisualizations() {
     filterData();
     activeGateName = null;
-    renderProgressFilters();
+    renderVehicleFilterControls();
     renderOverviewChips();
     clearDetails();
     updateStats();
@@ -904,18 +966,17 @@ function updateVisualizations() {
 }
 
 function updateStats() {
-    const vehicleFilter = d3.select("#vehicle-filter").property("value");
-    const selectedTypeRecords = vehicleFilter === "all"
+    const selectedTypeRecords = activeVehicleTypes.has("all")
         ? parsedData.length
-        : parsedData.filter(d => d["car-type"] === vehicleFilter).length;
+        : parsedData.filter(d => activeVehicleTypes.has(d["car-type"])).length;
 
     const timeRangeData = filterData();
     const filteredCount = timeRangeData.length;
-    const filteredVehicles = new Set(timeRangeData.map(d => d["car-id"])).size;
-    const riskWindowCount = parsedData.filter(d => ["Tuesday", "Thursday"].includes(d.dayName) && d.hour >= 2 && d.hour < 5).length;
+    const filteredVehicles = countUnique(timeRangeData);
+    const riskWindowCount = parsedData.filter(isRiskWindow).length;
     
     const stats = [
-        { label: vehicleFilter === "all" ? "Total Records" : `Type ${vehicleFilter} Records`, value: selectedTypeRecords },
+        { label: getVehicleFilterLabel(), value: selectedTypeRecords },
         { label: "Filtered Vehicle IDs", value: filteredVehicles },
         { label: "Tue/Thu 2-5am Records", value: riskWindowCount },
         { label: "Filtered Records", value: filteredCount }
@@ -943,6 +1004,52 @@ function drawEmptyChart(container, width, height, message) {
         .attr("x", width / 2)
         .attr("y", height / 2)
         .text(message);
+}
+
+function drawHorizontalBarChart({ container, width, height, margin, data, label, fill, order = "normal" }) {
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const labels = data.map(label);
+    const x = d3.scaleLinear().domain([0, d3.max(data, d => d.count) || 1]).nice().range([0, innerWidth]);
+    const y = d3.scaleBand()
+        .domain(labels)
+        .range(order === "reverse" ? [innerHeight, 0] : [0, innerHeight])
+        .padding(order === "reverse" ? 0.16 : 0.18);
+
+    container.selectAll("*").remove();
+    const svg = container.append("svg").attr("viewBox", `0 0 ${width} ${height}`);
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    g.append("g")
+        .attr("class", "axis")
+        .call(d3.axisLeft(y).tickSize(0))
+        .call(selection => selection.select(".domain").remove());
+
+    g.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(4).tickFormat(formatShortCount));
+
+    g.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", d => y(label(d)))
+        .attr("width", d => x(d.count))
+        .attr("height", y.bandwidth())
+        .attr("rx", 5)
+        .attr("fill", fill)
+        .attr("opacity", order === "reverse" ? 0.9 : 0.88);
+
+    g.selectAll(".bar-value")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "chart-label")
+        .attr("x", d => x(d.count) + 8)
+        .attr("y", d => y(label(d)) + y.bandwidth() / 2 + 4)
+        .text(d => formatShortCount(d.count));
 }
 
 function updateAnalytics() {
@@ -976,7 +1083,7 @@ function updateHourDayHeatmap() {
         day,
         hour,
         count: grid.get(day)?.get(hour) || 0,
-        isRiskWindow: ["Tuesday", "Thursday"].includes(day) && hour >= 2 && hour < 5
+        isRiskWindow: riskWindowDays.has(day) && hour >= 2 && hour < 5
     })));
     const maxCount = d3.max(cells, d => d.count) || 1;
     const x = d3.scaleBand().domain(d3.range(24)).range([0, innerWidth]).padding(0.06);
@@ -1032,46 +1139,15 @@ function updateVehicleMixChart() {
 
     const data = Array.from(d3.rollup(filteredData, rows => rows.length, d => d["car-type"]), ([type, count]) => ({ type, count }))
         .sort((a, b) => d3.ascending(String(a.type), String(b.type)));
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-    const x = d3.scaleLinear().domain([0, d3.max(data, d => d.count) || 1]).nice().range([0, innerWidth]);
-    const y = d3.scaleBand().domain(data.map(d => `Type ${d.type}`)).range([0, innerHeight]).padding(0.18);
-    const color = d3.scaleOrdinal().domain(data.map(d => d.type)).range(["#2563eb", "#e11d48", "#14b8a6", "#f59e0b", "#7c3aed", "#64748b", "#0f172a"]);
-
-    container.selectAll("*").remove();
-    const svg = container.append("svg").attr("viewBox", `0 0 ${width} ${height}`);
-    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-    g.append("g")
-        .attr("class", "axis")
-        .call(d3.axisLeft(y).tickSize(0))
-        .call(selection => selection.select(".domain").remove());
-
-    g.append("g")
-        .attr("class", "axis")
-        .attr("transform", `translate(0,${innerHeight})`)
-        .call(d3.axisBottom(x).ticks(4).tickFormat(formatShortCount));
-
-    g.selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", d => y(`Type ${d.type}`))
-        .attr("width", d => x(d.count))
-        .attr("height", y.bandwidth())
-        .attr("rx", 5)
-        .attr("fill", d => color(d.type))
-        .attr("opacity", 0.88);
-
-    g.selectAll(".bar-value")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "chart-label")
-        .attr("x", d => x(d.count) + 8)
-        .attr("y", d => y(`Type ${d.type}`) + y.bandwidth() / 2 + 4)
-        .text(d => formatShortCount(d.count));
+    drawHorizontalBarChart({
+        container,
+        width,
+        height,
+        margin,
+        data,
+        label: d => getVehicleType(d.type)?.label || `Type ${d.type}`,
+        fill: d => getVehicleType(d.type)?.color || "#94a3b8"
+    });
 }
 
 function updateTopLocationChart() {
@@ -1089,46 +1165,16 @@ function updateTopLocationChart() {
         .sort((a, b) => b.count - a.count)
         .slice(0, 8)
         .reverse();
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-    const x = d3.scaleLinear().domain([0, d3.max(data, d => d.count) || 1]).nice().range([0, innerWidth]);
-    const y = d3.scaleBand().domain(data.map(d => d.name)).range([innerHeight, 0]).padding(0.16);
-    const toneColor = d => ({ critical: "#e11d48", warning: "#f59e0b", context: "#14b8a6" }[d.tone] || "#94a3b8");
-
-    container.selectAll("*").remove();
-    const svg = container.append("svg").attr("viewBox", `0 0 ${width} ${height}`);
-    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-    g.append("g")
-        .attr("class", "axis")
-        .call(d3.axisLeft(y).tickSize(0))
-        .call(selection => selection.select(".domain").remove());
-
-    g.append("g")
-        .attr("class", "axis")
-        .attr("transform", `translate(0,${innerHeight})`)
-        .call(d3.axisBottom(x).ticks(4).tickFormat(formatShortCount));
-
-    g.selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", d => y(d.name))
-        .attr("width", d => x(d.count))
-        .attr("height", y.bandwidth())
-        .attr("rx", 5)
-        .attr("fill", toneColor)
-        .attr("opacity", 0.9);
-
-    g.selectAll(".bar-value")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "chart-label")
-        .attr("x", d => x(d.count) + 8)
-        .attr("y", d => y(d.name) + y.bandwidth() / 2 + 4)
-        .text(d => formatShortCount(d.count));
+    drawHorizontalBarChart({
+        container,
+        width,
+        height,
+        margin,
+        data,
+        label: d => d.name,
+        fill: d => toneColors[d.tone] || "#94a3b8",
+        order: "reverse"
+    });
 }
 
 function updateHeatMap() {
@@ -1177,6 +1223,8 @@ function updateHeatMap() {
         .attr("height", mapHeight)
         .attr("opacity", 0.8)
         .style("pointer-events", "none");
+
+    drawActiveRoute(g);
     
     const locations = Array.from(locationData, ([name, count]) => ({
         name,
@@ -1184,8 +1232,29 @@ function updateHeatMap() {
         coord: coords[name],
         tone: getLocationTone(name),
         siteType: getSiteType(name),
-        markerCode: getMarkerCode(name)
+        markerCode: getMarkerCode(name),
+        radius: Math.max(6, Math.min(14, radiusScale(count) * 0.68))
     })).filter(d => d.coord && d.count > 0);
+
+    const layoutLocations = locations.map(d => ({
+        ...d,
+        x: d.coord.x,
+        y: d.coord.y,
+        targetX: d.coord.x,
+        targetY: d.coord.y
+    }));
+
+    d3.forceSimulation(layoutLocations)
+        .force("x", d3.forceX(d => d.targetX).strength(0.18))
+        .force("y", d3.forceY(d => d.targetY).strength(0.18))
+        .force("collide", d3.forceCollide(d => d.radius + 3).iterations(4))
+        .stop()
+        .tick(180);
+
+    layoutLocations.forEach(d => {
+        d.x = Math.max(d.radius + 2, Math.min(mapWidth - d.radius - 2, d.x));
+        d.y = Math.max(d.radius + 2, Math.min(mapHeight - d.radius - 2, d.y));
+    });
 
     if (locations.length === 0) {
         svg.append("text")
@@ -1199,9 +1268,9 @@ function updateHeatMap() {
         return;
     }
 
-    const delaunay = d3.Delaunay.from(locations, d => d.coord.x, d => d.coord.y);
+    const delaunay = d3.Delaunay.from(layoutLocations, d => d.x, d => d.y);
     const voronoi = delaunay.voronoi([0, 0, mapWidth, mapHeight]);
-    const features = locations.map((d, index) => ({
+    const features = layoutLocations.map((d, index) => ({
         ...d,
         polygon: voronoi.cellPolygon(index)
     })).filter(d => d.polygon);
@@ -1223,6 +1292,7 @@ function updateHeatMap() {
             }
 
             activeGateName = d.name;
+            activeFindingId = getPrimaryFindingForLocation(d.name)?.id || null;
             updateActiveLocationStyles();
             zoomToFeature(event.currentTarget);
             showGateDetails(d.name);
@@ -1237,32 +1307,32 @@ function updateHeatMap() {
         .on("mouseout", () => tooltip.style("display", "none"));
 
     g.selectAll(".location-marker")
-        .data(locations)
+        .data(layoutLocations)
         .enter()
         .append("circle")
         .attr("class", d => `circle-clickable location-marker site-${d.siteType}${d.tone ? ` tone-${d.tone}` : ""}`)
-        .attr("cx", d => d.coord.x)
-        .attr("cy", d => d.coord.y)
-        .attr("r", d => Math.max(5, Math.min(17, radiusScale(d.count) * 0.82)))
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y)
+        .attr("r", d => d.radius)
         .style("pointer-events", "none");
 
     g.selectAll(".location-code")
-        .data(locations)
+        .data(layoutLocations)
         .enter()
         .append("text")
         .attr("class", d => `location-code site-${d.siteType}`)
-        .attr("x", d => d.coord.x)
-        .attr("y", d => d.coord.y + 3)
+        .attr("x", d => d.x)
+        .attr("y", d => d.y + 3)
         .attr("text-anchor", "middle")
         .text(d => d.markerCode);
 
     g.selectAll(".location-label")
-        .data(locations)
+        .data(layoutLocations)
         .enter()
         .append("text")
         .attr("class", "location-label")
-        .attr("x", d => d.coord.x)
-        .attr("y", d => d.coord.y - radiusScale(d.count) - 8)
+        .attr("x", d => d.x)
+        .attr("y", d => d.y - d.radius - 8)
         .attr("text-anchor", "middle")
         .text(d => d.name);
 

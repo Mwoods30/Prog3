@@ -150,12 +150,71 @@
             font-size: 0.72rem;
             letter-spacing: 0.04em;
         }
+        .control-group.vehicle-filter-group {
+            align-items: flex-start;
+            flex: 1 1 620px;
+            gap: 12px;
+        }
         .control-group label {
             font-weight: 700;
             color: var(--text-2);
             text-transform: uppercase;
             letter-spacing: 0.08em;
             font-size: 0.74rem;
+        }
+        .vehicle-filter-group label {
+            padding-top: 12px;
+        }
+        .vehicle-filter-options {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(132px, 1fr));
+            gap: 8px;
+            width: 100%;
+        }
+        .vehicle-chip {
+            --chip-color: #111827;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2px 8px;
+            align-items: center;
+            min-height: 54px;
+            padding: 9px 10px;
+            border-radius: 10px;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #111827;
+            box-shadow: none;
+            text-align: left;
+        }
+        .vehicle-chip:hover {
+            background: #f9fafb;
+            border-color: var(--chip-color);
+            transform: none;
+        }
+        .vehicle-chip.is-active {
+            background: #f9fafb;
+            border-color: var(--chip-color);
+            box-shadow: inset 3px 0 0 var(--chip-color);
+        }
+        .vehicle-chip-main {
+            font-weight: 850;
+            font-size: 0.86rem;
+            line-height: 1.1;
+        }
+        .vehicle-chip-detail {
+            color: #6b7280;
+            font-size: 0.76rem;
+            line-height: 1.15;
+        }
+        .vehicle-chip-count {
+            grid-row: 1 / span 2;
+            grid-column: 2;
+            color: #374151;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 6px;
+            border-radius: 999px;
+            background: #f3f4f6;
         }
         select, input[type="range"] {
             padding: 10px 12px;
@@ -255,11 +314,53 @@
             border: 1px solid var(--line-soft);
             box-shadow: var(--shadow-xl);
         }
+        .briefing-panel summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        .briefing-panel summary::-webkit-details-marker {
+            display: none;
+        }
+        .board-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+            padding: 9px 12px;
+            border-radius: 999px;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            color: #111827;
+            font-size: 0.78rem;
+            font-weight: 850;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .board-toggle::after {
+            content: "Show";
+        }
+        .briefing-panel[open] .board-toggle::after {
+            content: "Hide";
+        }
+        .board-toggle-icon {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid currentColor;
+            transition: transform 0.2s;
+        }
+        .briefing-panel[open] .board-toggle-icon {
+            transform: rotate(180deg);
+        }
         .briefing-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             gap: 20px;
+        }
+        .briefing-panel[open] .briefing-header {
             margin-bottom: 18px;
         }
         .briefing-header h2 {
@@ -273,41 +374,6 @@
             color: var(--text-2);
             line-height: 1.6;
             max-width: 72ch;
-        }
-        .progress-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .progress-pill {
-            padding: 10px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.14);
-            background: rgba(39, 36, 42, 0.84);
-            color: var(--text-2);
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
-            box-shadow: none;
-        }
-        .progress-pill:hover {
-            background: rgba(59, 51, 58, 0.9);
-            transform: translateY(-1px);
-            border-color: rgba(214, 168, 79, 0.32);
-            color: var(--text-1);
-        }
-        .progress-pill.is-active {
-            background: linear-gradient(180deg, rgba(165, 56, 82, 0.94) 0%, rgba(124, 45, 79, 0.96) 100%);
-            color: var(--text-0);
-            border-color: rgba(214, 168, 79, 0.36);
-            box-shadow: 0 12px 26px rgba(124, 45, 79, 0.28);
-        }
-        .progress-pill.is-active:hover {
-            background: linear-gradient(180deg, rgba(165, 56, 82, 0.94) 0%, rgba(124, 45, 79, 0.96) 100%);
-            color: var(--text-0);
         }
         .finding-board {
             display: grid;
@@ -659,7 +725,7 @@
             display: grid;
             grid-template-columns: minmax(760px, 1.55fr) minmax(360px, 0.78fr);
             gap: 24px;
-            align-items: start;
+            align-items: stretch;
         }
         .map-panel, .detail-panel {
             background: rgba(24, 21, 28, 0.84);
@@ -668,6 +734,11 @@
             border-radius: 24px;
             box-shadow: 0 28px 65px rgba(0, 0, 0, 0.34);
             overflow: hidden;
+            height: 100%;
+        }
+        .map-panel {
+            display: flex;
+            flex-direction: column;
         }
         .panel-header {
             display: flex;
@@ -702,9 +773,7 @@
         .detail-panel {
             padding: 24px;
             min-height: clamp(620px, 74vh, 980px);
-            position: sticky;
-            top: clamp(16px, 2vw, 28px);
-            max-height: calc(100vh - (clamp(16px, 2vw, 28px) * 2));
+            max-height: none;
             overflow: auto;
         }
         .detail-section-title {
@@ -751,8 +820,13 @@
             gap: 12px;
         }
         .legend-strip {
-            padding-top: 0;
+            margin-top: 24px;
+            padding: 16px 18px;
             min-height: auto;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            box-shadow: 0 16px 36px rgba(17, 24, 39, 0.07);
         }
         .site-legend {
             display: flex;
@@ -864,6 +938,47 @@
             fill: rgba(51, 65, 85, 0.22);
             opacity: 0.45;
         }
+        .route-overlay {
+            pointer-events: none;
+        }
+        .route-line {
+            fill: none;
+            stroke: #e11d48;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 10 7;
+            vector-effect: non-scaling-stroke;
+            filter: drop-shadow(0 2px 4px rgba(127, 29, 29, 0.34));
+        }
+        .route-line-halo {
+            stroke: #ffffff;
+            stroke-width: 9;
+            stroke-dasharray: none;
+            opacity: 0.85;
+            filter: none;
+        }
+        .route-stop {
+            fill: #ffffff;
+            stroke: #e11d48;
+            stroke-width: 3;
+            vector-effect: non-scaling-stroke;
+        }
+        .route-index {
+            fill: #991b1b;
+            font-size: 8px;
+            font-weight: 900;
+            pointer-events: none;
+        }
+        .route-caption {
+            fill: #991b1b;
+            font-size: 12px;
+            font-weight: 900;
+            paint-order: stroke;
+            stroke: #ffffff;
+            stroke-width: 4px;
+            stroke-linejoin: round;
+        }
         .analytics-panel {
             margin-bottom: 24px;
             padding: 22px 24px 24px 24px;
@@ -941,7 +1056,7 @@
             font-size: 14px;
             text-anchor: middle;
         }
-        /* Simple light presentation theme */
+        /* Simple light dashboard theme */
         :root {
             --bg-0: #ffffff;
             --bg-1: #f6f7f9;
@@ -1055,16 +1170,14 @@
             background: #111827;
             border-color: #111827;
         }
-        button,
-        .zoom-btn,
-        .progress-pill.is-active,
-        .progress-pill.is-active:hover {
+        button:not(.vehicle-chip),
+        .zoom-btn {
             background: #2563eb;
             color: #ffffff;
             border-color: #2563eb;
             box-shadow: 0 10px 20px rgba(37, 99, 235, 0.16);
         }
-        button:hover,
+        button:not(.vehicle-chip):hover,
         .zoom-btn:hover {
             background: #1d4ed8;
         }
@@ -1072,12 +1185,6 @@
             background: #6b7280;
             color: #ffffff;
             box-shadow: none;
-        }
-        .progress-pill,
-        .progress-pill:hover {
-            background: #f3f4f6;
-            color: #374151;
-            border-color: #e5e7eb;
         }
         .stat-box,
         .stat-box.alt1 {
@@ -1178,6 +1285,10 @@
             fill: rgba(17, 24, 39, 0.14);
             stroke: #111827;
         }
+        .feature-cell.is-route {
+            stroke: #e11d48;
+            stroke-width: 2;
+        }
         .location-label {
             fill: #111827;
             stroke: #ffffff;
@@ -1233,6 +1344,12 @@
             stroke: #111827;
             stroke-width: 3.6;
             filter: drop-shadow(0 3px 7px rgba(17, 24, 39, 0.3));
+        }
+        .location-marker.is-route {
+            opacity: 1;
+            stroke: #e11d48;
+            stroke-width: 4;
+            filter: drop-shadow(0 3px 7px rgba(225, 29, 72, 0.36));
         }
         .location-code {
             fill: #ffffff;
@@ -1320,6 +1437,9 @@
             .analytics-grid {
                 grid-template-columns: 1fr;
             }
+            .vehicle-filter-options {
+                grid-template-columns: repeat(2, minmax(132px, 1fr));
+            }
             .map-stage, .detail-panel {
                 min-height: auto;
             }
@@ -1346,6 +1466,12 @@
                 width: 100%;
                 min-width: 0;
             }
+            .vehicle-filter-group label {
+                padding-top: 0;
+            }
+            .vehicle-filter-options {
+                grid-template-columns: 1fr;
+            }
             .stats {
                 grid-template-columns: 1fr;
             }
@@ -1362,35 +1488,27 @@
 <body>
     <div class="app-shell">
         <div class="hero">
-            <div class="hero-eyebrow">VAST Challenge 1 • Slide-Synthesized Evidence</div>
+            <div class="hero-eyebrow">VAST Challenge 1 • Sensor Data Dashboard</div>
             <h1>Lekagul Traffic Atlas</h1>
-            <p>A focused investigation dashboard for the Lekagul Preserve sensor records. It combines the raw CSV with findings from the two progress decks, then turns the traffic logs into a clear story about unusual restricted access, possible dumping activity, and the baseline patterns that make those anomalies stand out.</p>
+            <p>A focused dashboard for the Lekagul Preserve sensor records. It shows where vehicles move, when activity spikes, which vehicle types dominate, and which locations have traffic patterns that need closer inspection.</p>
             <div class="hero-subgrid">
                 <div class="hero-note">
-                    <strong>Main Argument</strong>
-                    The strongest evidence points to repeated non-ranger activity near restricted gates and Ranger-Stop 3, especially during the Tuesday/Thursday overnight window. The dashboard is organized so you can move from summary findings, to traffic patterns, to the exact map locations supporting that claim.
+                    <strong>What The Data Says</strong>
+                    Most traffic follows expected seasonal, visitor, and ranger patterns. The major exception is repeated non-ranger activity around restricted gates and Ranger-Stop 3, especially during the Tuesday/Thursday 2am-5am window.
                 </div>
                 <div class="overview-chips" id="overview-chips">
-                    <div class="overview-chip"><strong>2</strong><span>Source Decks</span></div>
-                    <div class="overview-chip"><strong>10</strong><span>Key Findings</span></div>
-                    <div class="overview-chip"><strong>Map</strong><span>Primary Evidence Surface</span></div>
+                    <div class="overview-chip"><strong>Data</strong><span>Loading Records</span></div>
+                    <div class="overview-chip"><strong>IDs</strong><span>Loading Vehicles</span></div>
+                    <div class="overview-chip"><strong>Map</strong><span>Critical Locations</span></div>
+                    <div class="overview-chip"><strong>Sites</strong><span>Pattern Locations</span></div>
                 </div>
             </div>
         </div>
 
         <div class="controls control-bar">
-            <div class="control-group">
-                <label for="vehicle-filter">Vehicle Type</label>
-                <select id="vehicle-filter">
-                    <option value="all">All Types</option>
-                    <option value="1">Type 1 (Cars)</option>
-                    <option value="2">Type 2 (Vans)</option>
-                    <option value="2P">Type 2P (Vans+)</option>
-                    <option value="3">Type 3 (Minibus)</option>
-                    <option value="4">Type 4 (Heavy Truck)</option>
-                    <option value="5">Type 5 (Coach)</option>
-                    <option value="6">Type 6 (Articulated)</option>
-                </select>
+            <div class="control-group vehicle-filter-group">
+                <label id="vehicle-filter-label">Vehicle Types</label>
+                <div id="vehicle-filter-options" class="vehicle-filter-options" role="group" aria-labelledby="vehicle-filter-label"></div>
             </div>
             <div class="control-group time-window-group">
                 <label for="time-start">Time Window</label>
@@ -1413,16 +1531,16 @@
             <button id="reset-btn">Reset Filters</button>
         </div>
 
-        <section class="briefing-panel">
-            <div class="briefing-header">
+        <details class="briefing-panel">
+            <summary class="briefing-header">
                 <div>
-                    <h2>Investigation Board</h2>
-                    <p>Use the progress filters to isolate what each deck contributed. Each card is clickable: selecting one recenters the map and opens the evidence view at the most relevant location.</p>
+                    <h2>Data Pattern Board</h2>
+                    <p>Each card explains a pattern visible in the sensor records. Select a card to jump to its strongest map location, then use the charts and evidence panel to inspect the underlying records.</p>
                 </div>
-                <div id="progress-filters" class="progress-tabs"></div>
-            </div>
+                <span class="board-toggle"><span class="board-toggle-icon" aria-hidden="true"></span></span>
+            </summary>
             <div id="finding-board" class="finding-board"></div>
-        </section>
+        </details>
 
         <div class="stats" id="stats-container"></div>
 
@@ -1431,7 +1549,7 @@
                 <div>
                     <p class="panel-kicker">Traffic Pattern Overview</p>
                     <h2>Filtered Sensor Behavior</h2>
-                    <p>These charts respond to the vehicle and hour filters, making it easier to explain whether a selected pattern is normal preserve traffic, ranger baseline behavior, or part of the overnight suspicious window.</p>
+                    <p>These charts respond to the vehicle and hour filters. Use them to compare normal preserve traffic, ranger operations, seasonal visitor traffic, and the overnight restricted-area anomaly.</p>
                 </div>
             </div>
             <div class="analytics-grid">
@@ -1459,34 +1577,35 @@
                     <div>
                         <p class="panel-kicker">Interactive Map</p>
                         <h2>Evidence Map</h2>
-                        <p>Each node sits on the matching gate, entrance, campsite, or ranger location from the labeled preserve map. Click a region to zoom in, reveal the location label, and inspect only the records relevant to that site.</p>
+                        <p>Each marker is a gate, entrance, campsite, ranger stop, or ranger base. Click a region to zoom in, reveal the location label, and inspect the records for that exact site.</p>
                     </div>
                     <button class="zoom-btn" id="zoomResetBtn" disabled>Reset View</button>
                 </div>
                 <div id="map-container" class="chart-container map-stage"></div>
-                <div class="map-stage legend-strip">
-                    <div class="site-legend" aria-label="Map marker legend">
-                        <span class="site-legend-item"><span class="site-symbol camping"></span>Camping</span>
-                        <span class="site-legend-item"><span class="site-symbol entrance"></span>Entrance</span>
-                        <span class="site-legend-item"><span class="site-symbol restricted"></span>Restricted Gate</span>
-                        <span class="site-legend-item"><span class="site-symbol ranger"></span>Ranger Stop/Base</span>
-                        <span class="site-legend-item"><span class="site-symbol general"></span>General Gate</span>
-                    </div>
-                </div>
             </section>
 
             <aside class="detail-panel">
                 <p class="panel-kicker">Evidence Panel</p>
                 <div id="detailStatus" class="detail-status">Awaiting Selection</div>
                 <h2 id="detailTitle">Select a Region</h2>
-                <p id="detailSummary" class="detail-copy">Choose a highlighted region on the map to inspect a curated evidence profile built from the slide findings, not a raw dump of sensor rows.</p>
-                <div class="detail-section-title">Slide Findings</div>
+                <p id="detailSummary" class="detail-copy">Choose a highlighted region on the map to inspect the sensor records, traffic mix, timing, and any anomaly patterns tied to that location.</p>
+                <div class="detail-section-title">Data Patterns</div>
                 <div id="findings-grid" class="findings-grid"></div>
                 <div class="detail-section-title">Current Summary</div>
                 <div id="detailStatsContainer" class="gate-stats"></div>
                 <div class="detail-section-title">Evidence Snapshot</div>
                 <div id="detailTableContainer"></div>
             </aside>
+        </div>
+
+        <div class="legend-strip">
+            <div class="site-legend" aria-label="Map marker legend">
+                <span class="site-legend-item"><span class="site-symbol camping"></span>Camping</span>
+                <span class="site-legend-item"><span class="site-symbol entrance"></span>Entrance</span>
+                <span class="site-legend-item"><span class="site-symbol restricted"></span>Restricted Gate</span>
+                <span class="site-legend-item"><span class="site-symbol ranger"></span>Ranger Stop/Base</span>
+                <span class="site-legend-item"><span class="site-symbol general"></span>General Gate</span>
+            </div>
         </div>
 
         <div class="tooltip" id="tooltip"></div>
