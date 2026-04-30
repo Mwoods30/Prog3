@@ -54,6 +54,101 @@
             gap: 10px;
             align-items: center;
         }
+        .control-group.time-window-group {
+            align-items: flex-start;
+        }
+        .time-window-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 260px;
+        }
+        .time-window-slider {
+            position: relative;
+            width: 260px;
+            height: 22px;
+        }
+        .time-window-slider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 6px;
+            border-radius: 999px;
+            transform: translateY(-50%);
+            background: rgba(148, 163, 184, 0.2);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+        .time-window-fill {
+            position: absolute;
+            top: 50%;
+            height: 6px;
+            border-radius: 999px;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.9) 0%, rgba(37, 99, 235, 0.92) 100%);
+            box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.18);
+            pointer-events: none;
+        }
+        .time-window-slider input[type="range"] {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            appearance: none;
+            -webkit-appearance: none;
+            pointer-events: none;
+        }
+        .time-window-slider input[type="range"]::-webkit-slider-runnable-track {
+            height: 6px;
+            background: transparent;
+        }
+        .time-window-slider input[type="range"]::-moz-range-track {
+            height: 6px;
+            background: transparent;
+        }
+        .time-window-slider input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            margin-top: -5px;
+            border-radius: 50%;
+            border: 2px solid #e0f2fe;
+            background: #0f172a;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        .time-window-slider input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #e0f2fe;
+            background: #0f172a;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        .time-window-slider input[type="range"]:hover::-webkit-slider-thumb,
+        .time-window-slider input[type="range"]:focus-visible::-webkit-slider-thumb {
+            box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.28);
+        }
+        .time-window-slider input[type="range"]:hover::-moz-range-thumb,
+        .time-window-slider input[type="range"]:focus-visible::-moz-range-thumb {
+            box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.28);
+        }
+        .time-window-ticks {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-3);
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+        }
         .control-group label {
             font-weight: 700;
             color: var(--text-2);
@@ -786,6 +881,11 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .time-window-control,
+            .time-window-slider {
+                width: 100%;
+                min-width: 0;
+            }
             .stats {
                 grid-template-columns: 1fr;
             }
@@ -842,10 +942,23 @@
                     <option value="6">Type 6 (Articulated)</option>
                 </select>
             </div>
-            <div class="control-group">
-                <label for="time-range">Hour</label>
-                <input type="range" id="time-range" min="0" max="24" value="24">
-                <span id="time-display">All Hours</span>
+            <div class="control-group time-window-group">
+                <label for="time-start">Time Window</label>
+                <div class="time-window-control">
+                    <div class="time-window-slider">
+                        <div class="time-window-fill" id="time-window-fill"></div>
+                        <input type="range" id="time-start" min="0" max="23" value="0" aria-label="Start hour">
+                        <input type="range" id="time-end" min="0" max="23" value="23" aria-label="End hour">
+                    </div>
+                    <div class="time-window-ticks">
+                        <span>00</span>
+                        <span>06</span>
+                        <span>12</span>
+                        <span>18</span>
+                        <span>23</span>
+                    </div>
+                    <span id="time-display">All Hours</span>
+                </div>
             </div>
             <button id="reset-btn">Reset Filters</button>
         </div>

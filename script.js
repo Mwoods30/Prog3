@@ -7,46 +7,46 @@ const scale = 600 / 982;
 
 // Location coordinates
 const coords = {
-    "entrance0": { x: 530 * scale, y: 120 * scale },
-    "entrance1": { x: 120 * scale, y: 430 * scale },
-    "entrance2": { x: 860 * scale, y: 450 * scale },
-    "entrance3": { x: 520 * scale, y: 900 * scale },
-    "entrance4": { x: 880 * scale, y: 880 * scale },
-    "general-gate0": { x: 650 * scale, y: 110 * scale },
-    "general-gate1": { x: 320 * scale, y: 170 * scale },
-    "general-gate2": { x: 700 * scale, y: 190 * scale },
-    "general-gate3": { x: 780 * scale, y: 290 * scale },
-    "general-gate4": { x: 560 * scale, y: 520 * scale },
-    "general-gate5": { x: 620 * scale, y: 430 * scale },
-    "general-gate6": { x: 650 * scale, y: 600 * scale },
-    "general-gate7": { x: 460 * scale, y: 790 * scale },
-    "ranger-stop0": { x: 540 * scale, y: 180 * scale },
-    "ranger-stop1": { x: 80 * scale, y: 210 * scale },
-    "ranger-stop2": { x: 540 * scale, y: 260 * scale },
-    "ranger-stop3": { x: 735 * scale, y: 240 * scale },
-    "ranger-stop4": { x: 140 * scale, y: 720 * scale },
-    "ranger-stop5": { x: 740 * scale, y: 490 * scale },
-    "ranger-stop6": { x: 630 * scale, y: 700 * scale },
-    "ranger-stop7": { x: 520 * scale, y: 720 * scale },
-    "ranger-base": { x: 760 * scale, y: 840 * scale },
-    "camping0": { x: 250 * scale, y: 420 * scale },
-    "camping1": { x: 760 * scale, y: 210 * scale },
-    "camping2": { x: 280 * scale, y: 500 * scale },
-    "camping3": { x: 330 * scale, y: 520 * scale },
-    "camping4": { x: 310 * scale, y: 570 * scale },
-    "camping5": { x: 210 * scale, y: 860 * scale },
-    "camping6": { x: 880 * scale, y: 810 * scale },
-    "camping7": { x: 805 * scale, y: 740 * scale },
-    "camping8": { x: 860 * scale, y: 280 * scale },
-    "gate0": { x: 220 * scale, y: 220 * scale },
-    "gate1": { x: 240 * scale, y: 260 * scale },
-    "gate2": { x: 190 * scale, y: 300 * scale },
-    "gate3": { x: 725 * scale, y: 340 * scale },
-    "gate4": { x: 720 * scale, y: 540 * scale },
-    "gate5": { x: 705 * scale, y: 470 * scale },
-    "gate6": { x: 630 * scale, y: 710 * scale },
-    "gate7": { x: 470 * scale, y: 850 * scale },
-    "gate8": { x: 760 * scale, y: 800 * scale }
+    "entrance0": { x: 308 * scale, y: 69 * scale },
+    "entrance1": { x: 89 * scale, y: 333 * scale },
+    "entrance2": { x: 897 * scale, y: 429 * scale },
+    "entrance3": { x: 566 * scale, y: 817 * scale },
+    "entrance4": { x: 688 * scale, y: 902 * scale },
+    "general-gate0": { x: 541 * scale, y: 49 * scale },
+    "general-gate1": { x: 318 * scale, y: 127 * scale },
+    "general-gate2": { x: 512 * scale, y: 161 * scale },
+    "general-gate3": { x: 912 * scale, y: 273 * scale },
+    "general-gate4": { x: 340 * scale, y: 482 * scale },
+    "general-gate5": { x: 609 * scale, y: 546 * scale },
+    "general-gate6": { x: 667 * scale, y: 673 * scale },
+    "general-gate7": { x: 322 * scale, y: 707 * scale },
+    "ranger-stop0": { x: 439 * scale, y: 84 * scale },
+    "ranger-stop1": { x: 98 * scale, y: 120 * scale },
+    "ranger-stop2": { x: 395 * scale, y: 175 * scale },
+    "ranger-stop3": { x: 725 * scale, y: 224 * scale },
+    "ranger-stop4": { x: 94 * scale, y: 467 * scale },
+    "ranger-stop5": { x: 741 * scale, y: 581 * scale },
+    "ranger-stop6": { x: 606 * scale, y: 722 * scale },
+    "ranger-stop7": { x: 494 * scale, y: 746 * scale },
+    "ranger-base": { x: 629 * scale, y: 858 * scale },
+    "camping0": { x: 258 * scale, y: 204 * scale },
+    "camping1": { x: 635 * scale, y: 249 * scale },
+    "camping2": { x: 221 * scale, y: 317 * scale },
+    "camping3": { x: 225 * scale, y: 339 * scale },
+    "camping4": { x: 239 * scale, y: 440 * scale },
+    "camping5": { x: 102 * scale, y: 594 * scale },
+    "camping6": { x: 735 * scale, y: 867 * scale },
+    "camping7": { x: 888 * scale, y: 712 * scale },
+    "camping8": { x: 897 * scale, y: 238 * scale },
+    "gate0": { x: 313 * scale, y: 165 * scale },
+    "gate1": { x: 286 * scale, y: 220 * scale },
+    "gate2": { x: 122 * scale, y: 270 * scale },
+    "gate3": { x: 731 * scale, y: 297 * scale },
+    "gate4": { x: 806 * scale, y: 561 * scale },
+    "gate5": { x: 644 * scale, y: 716 * scale },
+    "gate6": { x: 572 * scale, y: 740 * scale },
+    "gate7": { x: 477 * scale, y: 786 * scale },
+    "gate8": { x: 677 * scale, y: 887 * scale }
 };
 
 const findings = [
@@ -751,8 +751,9 @@ function showGateDetails(gateName) {
 function selectLocationByName(gateName, options = {}) {
     if (options.resetFilters) {
         d3.select("#vehicle-filter").property("value", "all");
-        d3.select("#time-range").property("value", 24);
-        d3.select("#time-display").text("All Hours");
+        d3.select("#time-start").property("value", 0);
+        d3.select("#time-end").property("value", 23);
+        updateTimeDisplay();
         updateVisualizations();
         activeFindingId = options.findingId || null;
     }
@@ -790,32 +791,75 @@ d3.csv(csvFile).then(data => {
     alert("Error loading CSV file. Check console.");
 });
 
+function formatHourLabel(hour, minuteLabel) {
+    return `${String(hour).padStart(2, "0")}:${minuteLabel}`;
+}
+
+function getTimeWindow() {
+    const startHour = +d3.select("#time-start").property("value");
+    const endHour = +d3.select("#time-end").property("value");
+    return {
+        startHour,
+        endHour,
+        isAllHours: startHour === 0 && endHour === 23
+    };
+}
+
+function updateTimeWindowFill() {
+    const { startHour, endHour } = getTimeWindow();
+    const fill = d3.select("#time-window-fill");
+    const min = 0;
+    const max = 23;
+    const leftPercent = ((startHour - min) / (max - min)) * 100;
+    const rightPercent = ((endHour - min) / (max - min)) * 100;
+
+    fill.style("left", `${leftPercent}%`);
+    fill.style("width", `${Math.max(rightPercent - leftPercent, 0)}%`);
+}
+
+function updateTimeDisplay() {
+    const { startHour, endHour, isAllHours } = getTimeWindow();
+    updateTimeWindowFill();
+    d3.select("#time-display").text(
+        isAllHours
+            ? "All Hours"
+            : `${formatHourLabel(startHour, "00")} - ${formatHourLabel(endHour, "59")}`
+    );
+}
+
 function setupControls() {
     d3.select("#vehicle-filter").on("change", updateVisualizations);
-    d3.select("#time-range").on("input", function() {
-        const hour = +this.value;
-        d3.select("#time-display").text(
-            hour === 24
-                ? "All Hours"
-                : `${String(hour).padStart(2, "0")}:00 - ${String((hour + 1) % 24).padStart(2, "0")}:59`
-        );
+    d3.select("#time-start").on("input", function() {
+        const endHour = +d3.select("#time-end").property("value");
+        const nextStart = Math.min(+this.value, endHour);
+        d3.select(this).property("value", nextStart);
+        updateTimeDisplay();
+        updateVisualizations();
+    });
+    d3.select("#time-end").on("input", function() {
+        const startHour = +d3.select("#time-start").property("value");
+        const nextEnd = Math.max(+this.value, startHour);
+        d3.select(this).property("value", nextEnd);
+        updateTimeDisplay();
         updateVisualizations();
     });
     d3.select("#reset-btn").on("click", () => {
         d3.select("#vehicle-filter").property("value", "all");
-        d3.select("#time-range").property("value", 24);
-        d3.select("#time-display").text("All Hours");
+        d3.select("#time-start").property("value", 0);
+        d3.select("#time-end").property("value", 23);
+        updateTimeDisplay();
         updateVisualizations();
     });
+    updateTimeDisplay();
 }
 
 function filterData() {
     const vehicleFilter = d3.select("#vehicle-filter").property("value");
-    const timeFilter = +d3.select("#time-range").property("value");
+    const { startHour, endHour, isAllHours } = getTimeWindow();
     
     filteredData = parsedData.filter(d => {
         const matches_vehicle = vehicleFilter === "all" || d["car-type"] === vehicleFilter;
-        const matches_time = timeFilter === 24 || d.hour === timeFilter;
+        const matches_time = isAllHours || (d.hour >= startHour && d.hour <= endHour);
         return matches_vehicle && matches_time;
     });
     

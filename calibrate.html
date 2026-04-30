@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Map Coordinate Calibrator</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #111827;
+            --panel-soft: #1f2937;
+            --line: #334155;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-2: #f59e0b;
+            --danger: #fb7185;
+            --success: #34d399;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(180deg, #020617 0%, var(--bg) 100%);
+            color: var(--text);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            padding: 20px;
+            border-right: 1px solid var(--line);
+            background: rgba(15, 23, 42, 0.96);
+            overflow-y: auto;
+        }
+
+        .map-panel {
+            padding: 20px;
+        }
+
+        h1, h2, h3, p {
+            margin-top: 0;
+        }
+
+        .card {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .label {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .point-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .hint {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .coord-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .coord-box {
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--panel-soft);
+            border: 1px solid var(--line);
+        }
+
+        .coord-box strong {
+            display: block;
+            font-size: 18px;
+            margin-top: 4px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--accent);
+            color: #082f49;
+        }
+
+        button.secondary {
+            background: #1e293b;
+            color: var(--text);
+            border: 1px solid var(--line);
+        }
+
+        button.warn {
+            background: var(--accent-2);
+            color: #431407;
+        }
+
+        button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .status {
+            color: var(--success);
+            min-height: 20px;
+            margin-top: 10px;
+        }
+
+        .map-frame {
+            display: inline-block;
+            position: relative;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+            background: #020617;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .map-frame img {
+            display: block;
+            max-width: min(90vw, 900px);
+            height: auto;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            cursor: crosshair;
+        }
+
+        .overlay svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .overlay .cells path {
+            fill: rgba(56, 189, 248, 0.08);
+            stroke: rgba(125, 211, 252, 0.45);
+            stroke-width: 1;
+        }
+
+        .overlay .cells path.active {
+            fill: rgba(245, 158, 11, 0.16);
+            stroke: rgba(251, 191, 36, 0.95);
+            stroke-width: 2;
+        }
+
+        .marker {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid white;
+            pointer-events: none;
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.45);
+        }
+
+        .marker.old {
+            background: var(--danger);
+        }
+
+        .marker.new {
+            background: var(--success);
+        }
+
+        .marker.active {
+            width: 18px;
+            height: 18px;
+            background: var(--accent);
+        }
+
+        .point-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .point-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: rgba(15, 23, 42, 0.7);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .point-item.active {
+            border-color: var(--accent);
+            background: rgba(14, 116, 144, 0.18);
+        }
+
+        .point-item.done {
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+
+        .point-item button {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 220px;
+            resize: vertical;
+            background: #020617;
+            color: #e2e8f0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+        }
+
+        code {
+            color: #bae6fd;
+        }
+
+        @media (max-width: 980px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <h1>Coordinate Calibrator</h1>
+            <p class="hint">Click each location on the map in order. The tool keeps the original marker visible so you can compare the old and new placements.</p>
+
+            <section class="card">
+                <span class="label">Current Point</span>
+                <div class="point-name" id="currentPointName">Loading...</div>
+                <p class="progress" id="progressText"></p>
+                <div class="coord-grid">
+                    <div class="coord-box">
+                        <span class="label">Original</span>
+                        <strong id="oldCoordText">-</strong>
+                    </div>
+                    <div class="coord-box">
+                        <span class="label">New</span>
+                        <strong id="newCoordText">Not set</strong>
+                    </div>
+                </div>
+                <div class="button-row">
+                    <button id="prevBtn" class="secondary">Previous</button>
+                    <button id="skipBtn" class="warn">Keep Original</button>
+                    <button id="nextBtn">Next</button>
+                </div>
+                <div class="status" id="statusText"></div>
+            </section>
+
+            <section class="card">
+                <h2>Point List</h2>
+                <div class="point-list" id="pointList"></div>
+            </section>
+
+            <section class="card">
+                <h2>Export</h2>
+                <p class="hint">When you finish, copy this object back into <code>script.js</code>.</p>
+                <div class="button-row">
+                    <button id="copyBtn">Copy Coords Object</button>
+                    <button id="resetBtn" class="secondary">Reset New Points</button>
+                </div>
+                <textarea id="exportBox" readonly></textarea>
+            </section>
+        </aside>
+
+        <main class="map-panel">
+            <div class="map-frame" id="mapFrame">
+                <img id="mapImage" src="reserve-map.jpg" alt="Reserve map for coordinate calibration">
+                <div class="overlay" id="mapOverlay">
+                    <svg id="overlaySvg" aria-hidden="true"></svg>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="coord-calibrator.js"></script>
+</body>
+</html>
