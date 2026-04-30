@@ -7,46 +7,46 @@ const scale = 600 / 982;
 
 // Location coordinates
 const coords = {
-    "entrance0": { x: 530 * scale, y: 120 * scale },
-    "entrance1": { x: 120 * scale, y: 430 * scale },
-    "entrance2": { x: 860 * scale, y: 450 * scale },
-    "entrance3": { x: 520 * scale, y: 900 * scale },
-    "entrance4": { x: 880 * scale, y: 880 * scale },
-    "general-gate0": { x: 650 * scale, y: 110 * scale },
-    "general-gate1": { x: 320 * scale, y: 170 * scale },
-    "general-gate2": { x: 700 * scale, y: 190 * scale },
-    "general-gate3": { x: 780 * scale, y: 290 * scale },
-    "general-gate4": { x: 560 * scale, y: 520 * scale },
-    "general-gate5": { x: 620 * scale, y: 430 * scale },
-    "general-gate6": { x: 650 * scale, y: 600 * scale },
-    "general-gate7": { x: 460 * scale, y: 790 * scale },
-    "ranger-stop0": { x: 540 * scale, y: 180 * scale },
-    "ranger-stop1": { x: 80 * scale, y: 210 * scale },
-    "ranger-stop2": { x: 540 * scale, y: 260 * scale },
-    "ranger-stop3": { x: 735 * scale, y: 240 * scale },
-    "ranger-stop4": { x: 140 * scale, y: 720 * scale },
-    "ranger-stop5": { x: 740 * scale, y: 490 * scale },
-    "ranger-stop6": { x: 630 * scale, y: 700 * scale },
-    "ranger-stop7": { x: 520 * scale, y: 720 * scale },
-    "ranger-base": { x: 760 * scale, y: 840 * scale },
-    "camping0": { x: 250 * scale, y: 420 * scale },
-    "camping1": { x: 760 * scale, y: 210 * scale },
-    "camping2": { x: 280 * scale, y: 500 * scale },
-    "camping3": { x: 330 * scale, y: 520 * scale },
-    "camping4": { x: 310 * scale, y: 570 * scale },
-    "camping5": { x: 210 * scale, y: 860 * scale },
-    "camping6": { x: 880 * scale, y: 810 * scale },
-    "camping7": { x: 805 * scale, y: 740 * scale },
-    "camping8": { x: 860 * scale, y: 280 * scale },
-    "gate0": { x: 220 * scale, y: 220 * scale },
-    "gate1": { x: 240 * scale, y: 260 * scale },
-    "gate2": { x: 190 * scale, y: 300 * scale },
-    "gate3": { x: 725 * scale, y: 340 * scale },
-    "gate4": { x: 720 * scale, y: 540 * scale },
-    "gate5": { x: 705 * scale, y: 470 * scale },
-    "gate6": { x: 630 * scale, y: 710 * scale },
-    "gate7": { x: 470 * scale, y: 850 * scale },
-    "gate8": { x: 760 * scale, y: 800 * scale }
+    "entrance0": { x: 307 * scale, y: 69 * scale },
+    "entrance1": { x: 88 * scale, y: 332 * scale },
+    "entrance2": { x: 897 * scale, y: 429 * scale },
+    "entrance3": { x: 566 * scale, y: 818 * scale },
+    "entrance4": { x: 688 * scale, y: 902 * scale },
+    "general-gate0": { x: 542 * scale, y: 49 * scale },
+    "general-gate1": { x: 317 * scale, y: 128 * scale },
+    "general-gate2": { x: 512 * scale, y: 161 * scale },
+    "general-gate3": { x: 911 * scale, y: 273 * scale },
+    "general-gate4": { x: 341 * scale, y: 483 * scale },
+    "general-gate5": { x: 612 * scale, y: 546 * scale },
+    "general-gate6": { x: 620 * scale, y: 673 * scale },
+    "general-gate7": { x: 322 * scale, y: 707 * scale },
+    "ranger-stop0": { x: 439 * scale, y: 83 * scale },
+    "ranger-stop1": { x: 98 * scale, y: 123 * scale },
+    "ranger-stop2": { x: 436 * scale, y: 185 * scale },
+    "ranger-stop3": { x: 727 * scale, y: 225 * scale },
+    "ranger-stop4": { x: 93 * scale, y: 469 * scale },
+    "ranger-stop5": { x: 741 * scale, y: 580 * scale },
+    "ranger-stop6": { x: 605 * scale, y: 722 * scale },
+    "ranger-stop7": { x: 493 * scale, y: 746 * scale },
+    "ranger-base": { x: 629 * scale, y: 858 * scale },
+    "camping0": { x: 259 * scale, y: 205 * scale },
+    "camping1": { x: 636 * scale, y: 250 * scale },
+    "camping2": { x: 220 * scale, y: 318 * scale },
+    "camping3": { x: 238 * scale, y: 337 * scale },
+    "camping4": { x: 239 * scale, y: 440 * scale },
+    "camping5": { x: 103 * scale, y: 595 * scale },
+    "camping6": { x: 735 * scale, y: 868 * scale },
+    "camping7": { x: 887 * scale, y: 711 * scale },
+    "camping8": { x: 897 * scale, y: 239 * scale },
+    "gate0": { x: 313 * scale, y: 167 * scale },
+    "gate1": { x: 308 * scale, y: 220 * scale },
+    "gate2": { x: 123 * scale, y: 269 * scale },
+    "gate3": { x: 731 * scale, y: 298 * scale },
+    "gate4": { x: 805 * scale, y: 561 * scale },
+    "gate5": { x: 653 * scale, y: 711 * scale },
+    "gate6": { x: 570 * scale, y: 741 * scale },
+    "gate7": { x: 478 * scale, y: 785 * scale },
+    "gate8": { x: 678 * scale, y: 886 * scale }
 };
 
 const findings = [
@@ -219,6 +219,27 @@ function getPrimaryFindingForLocation(locationName) {
         .filter(finding => finding.locations.includes(locationName))
         .sort((a, b) => toneRank(b.tone) - toneRank(a.tone))[0] || null;
 }
+
+function getSiteType(locationName) {
+    if (locationName.startsWith("camping")) return "camping";
+    if (locationName.startsWith("entrance")) return "entrance";
+    if (locationName.startsWith("ranger-stop")) return "ranger";
+    if (locationName === "ranger-base") return "base";
+    if (locationName.startsWith("gate")) return "restricted";
+    if (locationName.startsWith("general-gate")) return "general";
+    return "site";
+}
+
+function getMarkerCode(locationName) {
+    if (locationName.startsWith("camping")) return `C${locationName.replace("camping", "")}`;
+    if (locationName.startsWith("entrance")) return `E${locationName.replace("entrance", "")}`;
+    if (locationName.startsWith("ranger-stop")) return `R${locationName.replace("ranger-stop", "")}`;
+    if (locationName === "ranger-base") return "RB";
+    if (locationName.startsWith("general-gate")) return `GG${locationName.replace("general-gate", "")}`;
+    if (locationName.startsWith("gate")) return `G${locationName.replace("gate", "")}`;
+    return locationName.slice(0, 2).toUpperCase();
+}
+
 
 function renderProgressFilters() {
     const options = [
@@ -437,7 +458,7 @@ function buildRestrictedEvidence(gateName) {
         ],
         headers: ["Vehicle ID", "Type", "Visits", "Tue/Thu 2-5am", "First Seen", "Last Seen"],
         rows: grouped.map(([carId, info]) => [
-            `<code style="background: rgba(15, 23, 42, 0.88); color: #e2e8f0; padding: 2px 6px; border-radius: 3px;">${carId}</code>`,
+            `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${carId}</code>`,
             `<strong>Type ${info.carType}</strong>`,
             info.visits.toLocaleString(),
             info.overnightVisits.toLocaleString(),
@@ -475,7 +496,7 @@ function buildSensorGapEvidence() {
         ],
         headers: ["Vehicle ID", "Visits at Stop 1", "July Visits", "First Seen", "Last Seen"],
         rows: grouped.map(([carId, info]) => [
-            `<code style="background: rgba(15, 23, 42, 0.88); color: #e2e8f0; padding: 2px 6px; border-radius: 3px;">${carId}</code>`,
+            `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${carId}</code>`,
             info.visits.toLocaleString(),
             info.julyVisits.toLocaleString(),
             formatTime(info.firstSeen),
@@ -542,7 +563,7 @@ function buildEntranceEvidence(gateName) {
         ],
         headers: ["Vehicle ID", "Type", "Start", "End", "Duration", "Route Snapshot"],
         rows: multiDay.slice(0, 8).map(session => [
-            `<code style="background: rgba(15, 23, 42, 0.88); color: #e2e8f0; padding: 2px 6px; border-radius: 3px;">${session.carId}</code>`,
+            `<code style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 3px;">${session.carId}</code>`,
             `<strong>Type ${session.carType}</strong>`,
             formatTime(session.startTime),
             formatTime(session.endTime),
@@ -640,9 +661,14 @@ function updateActiveLocationStyles() {
         .classed("is-active", d => d.name === activeGateName)
         .classed("is-muted", d => hasActiveGate && d.name !== activeGateName);
 
-    d3.selectAll(".location-point")
+    d3.selectAll(".location-marker")
         .classed("is-active", d => d.name === activeGateName)
         .classed("is-muted", d => hasActiveGate && d.name !== activeGateName);
+
+    d3.selectAll(".location-code")
+        .classed("is-active", d => d.name === activeGateName)
+        .classed("is-muted", d => hasActiveGate && d.name !== activeGateName)
+        .classed("is-visible", d => !hasActiveGate && d.siteType === "camping");
 
     d3.selectAll(".location-label")
         .classed("is-visible", d => hasActiveGate && d.name === activeGateName);
@@ -829,24 +855,25 @@ function updateVisualizations() {
     renderOverviewChips();
     clearDetails();
     updateStats();
+    updateAnalytics();
     updateHeatMap();
 }
 
 function updateStats() {
     const vehicleFilter = d3.select("#vehicle-filter").property("value");
-    const totalRecords = vehicleFilter === "all" 
-        ? parsedData.length 
+    const selectedTypeRecords = vehicleFilter === "all"
+        ? parsedData.length
         : parsedData.filter(d => d["car-type"] === vehicleFilter).length;
-    
-    const uniqueLocations = new Set(parsedData.map(d => d["gate-name"])).size;
-    const uniqueVehicles = new Set(parsedData.map(d => d["car-id"])).size;
+
     const timeRangeData = filterData();
     const filteredCount = timeRangeData.length;
+    const filteredVehicles = new Set(timeRangeData.map(d => d["car-id"])).size;
+    const riskWindowCount = parsedData.filter(d => ["Tuesday", "Thursday"].includes(d.dayName) && d.hour >= 2 && d.hour < 5).length;
     
     const stats = [
-        { label: "Total Vehicles", value: totalRecords },
-        { label: "Unique Locations", value: uniqueLocations },
-        { label: "Unique Car IDs", value: uniqueVehicles },
+        { label: vehicleFilter === "all" ? "Total Records" : `Type ${vehicleFilter} Records`, value: selectedTypeRecords },
+        { label: "Filtered Vehicle IDs", value: filteredVehicles },
+        { label: "Tue/Thu 2-5am Records", value: riskWindowCount },
         { label: "Filtered Records", value: filteredCount }
     ];
     
@@ -857,6 +884,207 @@ function updateStats() {
         .attr("class", (d, i) => "stat-box" + (i > 0 ? " alt" + i : ""))
         .merge(statsDiv)
         .html(d => `<div class="stat-value">${d.value.toLocaleString()}</div><div class="stat-label">${d.label}</div>`);
+}
+
+function formatShortCount(value) {
+    return d3.format(value >= 1000 ? ".2s" : ",")(value).replace("G", "B");
+}
+
+function drawEmptyChart(container, width, height, message) {
+    container.selectAll("*").remove();
+    container.append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .append("text")
+        .attr("class", "chart-empty")
+        .attr("x", width / 2)
+        .attr("y", height / 2)
+        .text(message);
+}
+
+function updateAnalytics() {
+    updateHourDayHeatmap();
+    updateVehicleMixChart();
+    updateTopLocationChart();
+}
+
+function updateHourDayHeatmap() {
+    const container = d3.select("#hour-day-heatmap");
+    const width = 760;
+    const height = 300;
+    const margin = { top: 18, right: 20, bottom: 34, left: 74 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    if (!filteredData.length) {
+        drawEmptyChart(container, width, height, "No records match the active filters.");
+        return;
+    }
+
+    container.selectAll("*").remove();
+
+    const svg = container.append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`);
+    const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const grid = d3.rollup(filteredData, rows => rows.length, d => d.dayName, d => d.hour);
+    const cells = dayNames.flatMap(day => d3.range(24).map(hour => ({
+        day,
+        hour,
+        count: grid.get(day)?.get(hour) || 0,
+        isRiskWindow: ["Tuesday", "Thursday"].includes(day) && hour >= 2 && hour < 5
+    })));
+    const maxCount = d3.max(cells, d => d.count) || 1;
+    const x = d3.scaleBand().domain(d3.range(24)).range([0, innerWidth]).padding(0.06);
+    const y = d3.scaleBand().domain(dayNames).range([0, innerHeight]).padding(0.08);
+    const color = d3.scaleSequentialSqrt([0, maxCount], d3.interpolateRgbBasis(["#eff6ff", "#bfdbfe", "#60a5fa", "#1d4ed8"]));
+
+    g.selectAll("rect")
+        .data(cells)
+        .enter()
+        .append("rect")
+        .attr("x", d => x(d.hour))
+        .attr("y", d => y(d.day))
+        .attr("width", x.bandwidth())
+        .attr("height", y.bandwidth())
+        .attr("rx", 3)
+        .attr("fill", d => d.count ? color(d.count) : "#f9fafb")
+        .attr("stroke", d => d.isRiskWindow ? "#111827" : "#ffffff")
+        .attr("stroke-width", d => d.isRiskWindow ? 1.5 : 0.5)
+        .on("mouseover", (event, d) => {
+            tooltip.style("display", "block")
+                .style("left", `${event.pageX + 10}px`)
+                .style("top", `${event.pageY + 10}px`)
+                .html(`<strong>${d.day} ${String(d.hour).padStart(2, "0")}:00</strong><br/>${d.count.toLocaleString()} filtered detections${d.isRiskWindow ? "<br/><em>Investigation window</em>" : ""}`);
+        })
+        .on("mouseout", () => tooltip.style("display", "none"));
+
+    g.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).tickValues(d3.range(0, 24, 3)).tickFormat(d => `${d}:00`));
+
+    g.append("g")
+        .attr("class", "axis")
+        .call(d3.axisLeft(y));
+
+    svg.append("text")
+        .attr("class", "chart-muted")
+        .attr("x", margin.left)
+        .attr("y", height - 4)
+        .text(`Peak cell: ${maxCount.toLocaleString()} detections`);
+}
+
+function updateVehicleMixChart() {
+    const container = d3.select("#vehicle-mix-chart");
+    const width = 430;
+    const height = 300;
+    const margin = { top: 8, right: 54, bottom: 28, left: 84 };
+
+    if (!filteredData.length) {
+        drawEmptyChart(container, width, height, "No vehicle mix to show.");
+        return;
+    }
+
+    const data = Array.from(d3.rollup(filteredData, rows => rows.length, d => d["car-type"]), ([type, count]) => ({ type, count }))
+        .sort((a, b) => d3.ascending(String(a.type), String(b.type)));
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const x = d3.scaleLinear().domain([0, d3.max(data, d => d.count) || 1]).nice().range([0, innerWidth]);
+    const y = d3.scaleBand().domain(data.map(d => `Type ${d.type}`)).range([0, innerHeight]).padding(0.18);
+    const color = d3.scaleOrdinal().domain(data.map(d => d.type)).range(["#2563eb", "#e11d48", "#14b8a6", "#f59e0b", "#7c3aed", "#64748b", "#0f172a"]);
+
+    container.selectAll("*").remove();
+    const svg = container.append("svg").attr("viewBox", `0 0 ${width} ${height}`);
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    g.append("g")
+        .attr("class", "axis")
+        .call(d3.axisLeft(y).tickSize(0))
+        .call(selection => selection.select(".domain").remove());
+
+    g.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(4).tickFormat(formatShortCount));
+
+    g.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", d => y(`Type ${d.type}`))
+        .attr("width", d => x(d.count))
+        .attr("height", y.bandwidth())
+        .attr("rx", 5)
+        .attr("fill", d => color(d.type))
+        .attr("opacity", 0.88);
+
+    g.selectAll(".bar-value")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "chart-label")
+        .attr("x", d => x(d.count) + 8)
+        .attr("y", d => y(`Type ${d.type}`) + y.bandwidth() / 2 + 4)
+        .text(d => formatShortCount(d.count));
+}
+
+function updateTopLocationChart() {
+    const container = d3.select("#top-location-chart");
+    const width = 430;
+    const height = 300;
+    const margin = { top: 8, right: 58, bottom: 28, left: 128 };
+
+    if (!filteredData.length) {
+        drawEmptyChart(container, width, height, "No locations match the active filters.");
+        return;
+    }
+
+    const data = Array.from(d3.rollup(filteredData, rows => rows.length, d => d["gate-name"]), ([name, count]) => ({ name, count, tone: getLocationTone(name) }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 8)
+        .reverse();
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const x = d3.scaleLinear().domain([0, d3.max(data, d => d.count) || 1]).nice().range([0, innerWidth]);
+    const y = d3.scaleBand().domain(data.map(d => d.name)).range([innerHeight, 0]).padding(0.16);
+    const toneColor = d => ({ critical: "#e11d48", warning: "#f59e0b", context: "#14b8a6" }[d.tone] || "#94a3b8");
+
+    container.selectAll("*").remove();
+    const svg = container.append("svg").attr("viewBox", `0 0 ${width} ${height}`);
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    g.append("g")
+        .attr("class", "axis")
+        .call(d3.axisLeft(y).tickSize(0))
+        .call(selection => selection.select(".domain").remove());
+
+    g.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(4).tickFormat(formatShortCount));
+
+    g.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", d => y(d.name))
+        .attr("width", d => x(d.count))
+        .attr("height", y.bandwidth())
+        .attr("rx", 5)
+        .attr("fill", toneColor)
+        .attr("opacity", 0.9);
+
+    g.selectAll(".bar-value")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "chart-label")
+        .attr("x", d => x(d.count) + 8)
+        .attr("y", d => y(d.name) + y.bandwidth() / 2 + 4)
+        .text(d => formatShortCount(d.count));
 }
 
 function updateHeatMap() {
@@ -907,7 +1135,12 @@ function updateHeatMap() {
         .style("pointer-events", "none");
     
     const locations = Array.from(locationData, ([name, count]) => ({
-        name, count, coord: coords[name], tone: getLocationTone(name)
+        name,
+        count,
+        coord: coords[name],
+        tone: getLocationTone(name),
+        siteType: getSiteType(name),
+        markerCode: getMarkerCode(name)
     })).filter(d => d.coord && d.count > 0);
 
     if (locations.length === 0) {
@@ -915,7 +1148,7 @@ function updateHeatMap() {
             .attr("x", mapWidth / 2)
             .attr("y", mapHeight / 2)
             .attr("text-anchor", "middle")
-            .attr("fill", "#64748b")
+            .attr("fill", "#9ca3af")
             .style("font-size", "18px")
             .text("No locations match this filter.");
         d3.select("#zoomResetBtn").property("disabled", true);
@@ -931,15 +1164,6 @@ function updateHeatMap() {
 
     const polygonPath = polygon => `M${polygon.map(point => point.join(",")).join("L")}Z`;
 
-    g.selectAll(".signal-ring")
-        .data(locations.filter(d => d.tone && d.tone !== "context"))
-        .enter()
-        .append("circle")
-        .attr("class", d => `signal-ring tone-${d.tone}`)
-        .attr("cx", d => d.coord.x)
-        .attr("cy", d => d.coord.y)
-        .attr("r", d => radiusScale(d.count) + 10);
-    
     g.selectAll("path")
         .data(features)
         .enter()
@@ -968,17 +1192,27 @@ function updateHeatMap() {
         })
         .on("mouseout", () => tooltip.style("display", "none"));
 
-    g.selectAll("circle")
+    g.selectAll(".location-marker")
         .data(locations)
         .enter()
         .append("circle")
+        .attr("class", d => `circle-clickable location-marker site-${d.siteType}${d.tone ? ` tone-${d.tone}` : ""}`)
         .attr("cx", d => d.coord.x)
         .attr("cy", d => d.coord.y)
-        .attr("r", d => radiusScale(d.count))
-        .attr("class", d => `circle-clickable location-point${d.tone ? ` tone-${d.tone}` : ""}`)
+        .attr("r", d => Math.max(5, Math.min(17, radiusScale(d.count) * 0.82)))
         .style("pointer-events", "none");
 
-    g.selectAll("text")
+    g.selectAll(".location-code")
+        .data(locations)
+        .enter()
+        .append("text")
+        .attr("class", d => `location-code site-${d.siteType}`)
+        .attr("x", d => d.coord.x)
+        .attr("y", d => d.coord.y + 3)
+        .attr("text-anchor", "middle")
+        .text(d => d.markerCode);
+
+    g.selectAll(".location-label")
         .data(locations)
         .enter()
         .append("text")
@@ -1022,270 +1256,4 @@ function resetZoom() {
     svgSelection.transition()
         .duration(zoomDuration)
         .call(zoomBehavior.transform, d3.zoomIdentity);
-}
-
-function updateHourlyChart() {
-    const hourlyData = Array.from({ length: 24 }, (_, h) => ({
-        hour: h,
-        count: fullData.filter(d => new Date(d.Timestamp).getHours() === h).length
-    }));
-    
-    const container = d3.select("#hourly-container");
-    container.selectAll("svg").remove();
-    
-    const margin = { top: 20, right: 20, bottom: 30, left: 60 };
-    const width = 500 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const svg = container.append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    const x = d3.scaleBand().domain(d3.range(24)).range([0, width]);
-    const y = d3.scaleLinear().domain([0, d3.max(hourlyData, d => d.count)]).range([height, 0]);
-    
-    svg.selectAll("rect")
-        .data(hourlyData)
-        .enter()
-        .append("rect")
-        .attr("x", d => x(d.hour))
-        .attr("y", d => y(d.count))
-        .attr("width", x.bandwidth())
-        .attr("height", d => height - y(d.count))
-        .attr("fill", "#3498db")
-        .attr("opacity", 0.7)
-        .on("mouseover", (event, d) => {
-            tooltip.style("display", "block")
-                .style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY + 10) + "px")
-                .text(`Hour ${d.hour}: ${d.count} vehicles`);
-        })
-        .on("mouseout", () => tooltip.style("display", "none"));
-    
-    svg.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).tickFormat(d => d + ":00"));
-    
-    svg.append("g")
-        .call(d3.axisLeft(y).ticks(5));
-}
-
-function updateVehicleChart() {
-    const vehicleData = d3.rollup(fullData, v => v.length, d => d["car-type"]);
-    const data = Array.from(vehicleData, ([type, count]) => ({ type, count }))
-        .sort((a, b) => b.count - a.count);
-    
-    const container = d3.select("#vehicle-container");
-    container.selectAll("svg").remove();
-    
-    const margin = { top: 20, right: 20, bottom: 30, left: 60 };
-    const width = 500 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const svg = container.append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    const x = d3.scaleLinear().domain([0, d3.max(data, d => d.count)]).range([0, width]);
-    const y = d3.scaleBand().domain(data.map(d => "Type " + d.type)).range([0, height]);
-    
-    const colors = d3.scaleOrdinal().domain(data.map(d => d.type)).range(d3.schemeSet2);
-    
-    svg.selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", (d, i) => y(data[i].type ? "Type " + data[i].type : "Unknown"))
-        .attr("width", d => x(d.count))
-        .attr("height", y.bandwidth())
-        .attr("fill", (d, i) => colors(i))
-        .attr("opacity", 0.7);
-    
-    svg.append("g")
-        .call(d3.axisLeft(y));
-    
-    svg.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).ticks(5));
-}
-
-function updateHotspots() {
-    const hotspotData = d3.rollup(fullData, v => v.length, d => d["gate-name"]);
-    const top10 = Array.from(hotspotData, ([name, count]) => ({ name, count }))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 10);
-    
-    const container = d3.select("#hotspot-container");
-    container.selectAll("svg").remove();
-    
-    const margin = { top: 20, right: 20, bottom: 80, left: 60 };
-    const width = 500 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const svg = container.append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    const x = d3.scaleBand().domain(top10.map(d => d.name)).range([0, width]);
-    const y = d3.scaleLinear().domain([0, d3.max(top10, d => d.count)]).range([height, 0]);
-    
-    svg.selectAll("rect")
-        .data(top10)
-        .enter()
-        .append("rect")
-        .attr("x", d => x(d.name))
-        .attr("y", d => y(d.count))
-        .attr("width", x.bandwidth())
-        .attr("height", d => height - y(d.count))
-        .attr("fill", "#e74c3c")
-        .attr("opacity", 0.7);
-    
-    svg.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform", "rotate(-45)")
-        .attr("text-anchor", "end");
-    
-    svg.append("g")
-        .call(d3.axisLeft(y).ticks(5));
-}
-
-function updateAnomalies() {
-    const locationData = d3.rollup(fullData, v => v.length, d => d["gate-name"]);
-    const stats = Array.from(locationData.values());
-    const mean = stats.reduce((a, b) => a + b) / stats.length;
-    const std = Math.sqrt(stats.reduce((sq, n) => sq + Math.pow(n - mean, 2), 0) / stats.length);
-    const threshold = mean + 2 * std;
-    
-    const anomalies = Array.from(locationData, ([name, count]) => ({ name, count }))
-        .filter(d => d.count > threshold)
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 8);
-    
-    const container = d3.select("#anomaly-container");
-    container.selectAll("svg").remove();
-    
-    if (anomalies.length === 0) {
-        container.append("p").text("No anomalies detected (normal traffic patterns)").style("color", "#27ae60");
-        return;
-    }
-    
-    const margin = { top: 20, right: 20, bottom: 80, left: 60 };
-    const width = 500 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const svg = container.append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    const x = d3.scaleBand().domain(anomalies.map(d => d.name)).range([0, width]);
-    const y = d3.scaleLinear().domain([0, d3.max(anomalies, d => d.count)]).range([height, 0]);
-    
-    svg.selectAll("rect")
-        .data(anomalies)
-        .enter()
-        .append("rect")
-        .attr("x", d => x(d.name))
-        .attr("y", d => y(d.count))
-        .attr("width", x.bandwidth())
-        .attr("height", d => height - y(d.count))
-        .attr("fill", "#f39c12")
-        .attr("opacity", 0.7);
-    
-    svg.append("line")
-        .attr("x1", 0).attr("x2", width)
-        .attr("y1", y(threshold)).attr("y2", y(threshold))
-        .attr("stroke", "#e74c3c")
-        .attr("stroke-dasharray", "5,5")
-        .attr("stroke-width", 2);
-    
-    svg.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform", "rotate(-45)")
-        .attr("text-anchor", "end");
-    
-    svg.append("g")
-        .call(d3.axisLeft(y).ticks(5));
-}
-
-function updateRouteFlow() {
-    const routeFlows = {};
-    
-    fullData.forEach(d => {
-        const key = d["car-id"];
-        if (!routeFlows[key]) routeFlows[key] = [];
-        routeFlows[key].push({
-            gate: d["gate-name"],
-            time: new Date(d.Timestamp)
-        });
-    });
-    
-    Object.values(routeFlows).forEach(stops => {
-        stops.sort((a, b) => a.time - b.time);
-    });
-    
-    const routes = {};
-    Object.values(routeFlows).forEach(stops => {
-        if (stops.length > 1) {
-            for (let i = 0; i < stops.length - 1; i++) {
-                const route = stops[i].gate + " → " + stops[i + 1].gate;
-                routes[route] = (routes[route] || 0) + 1;
-            }
-        }
-    });
-    
-    const topRoutes = Object.entries(routes)
-        .map(([route, count]) => ({ route, count }))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 8);
-    
-    const container = d3.select("#route-container");
-    container.selectAll("svg").remove();
-    
-    const margin = { top: 20, right: 20, bottom: 80, left: 60 };
-    const width = 500 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    
-    const svg = container.append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-    const x = d3.scaleBand().domain(topRoutes.map(d => d.route)).range([0, width]);
-    const y = d3.scaleLinear().domain([0, d3.max(topRoutes, d => d.count)]).range([height, 0]);
-    
-    svg.selectAll("rect")
-        .data(topRoutes)
-        .enter()
-        .append("rect")
-        .attr("x", d => x(d.route))
-        .attr("y", d => y(d.count))
-        .attr("width", x.bandwidth())
-        .attr("height", d => height - y(d.count))
-        .attr("fill", "#9b59b6")
-        .attr("opacity", 0.7);
-    
-    svg.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform", "rotate(-45)")
-        .attr("text-anchor", "end")
-        .style("font-size", "11px");
-    
-    svg.append("g")
-        .call(d3.axisLeft(y).ticks(5));
 }
